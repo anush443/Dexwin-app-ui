@@ -111,21 +111,8 @@ const DepositFromExchange = () => {
                     >
                       <MenuItem value={"BTC"}>
                         <Box className={classes.selectBox}>
-                          <img src="images/btc.png" alt="image" />
-                          <Typography variant="h5">BTC</Typography>
-                        </Box>
-                      </MenuItem>
-                      <MenuItem value={"BNB"}>
-                        <Box className={classes.selectBox}>
-                          <img src="images/bnb.png" alt="image" />
-                          <Typography variant="h5">BNB</Typography>
-                        </Box>
-                      </MenuItem>
-
-                      <MenuItem value={"ETH"}>
-                        <Box className={classes.selectBox}>
-                          <img src="images/eth.png" alt="image" />
-                          <Typography variant="h5">ETH</Typography>
+                          <img src="images/dexwinCoin.png" alt="image" />
+                          <Typography variant="h5">DWIN</Typography>
                         </Box>
                       </MenuItem>
                     </Select>

@@ -1,5 +1,5 @@
 import { Box } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, createContext } from "react";
 import {
   makeStyles,
   Button,
@@ -9,7 +9,6 @@ import {
   IconButton,
 } from "@material-ui/core";
 import BetBox from "src/component/BetBox";
-import { useHistory } from "react-router-dom";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
 import ParlaySuggestion from "src/component/ParlaySuggestion";
 import MyBets from "src/views/pages/MyBets/MyBets";
@@ -28,8 +27,9 @@ import {
   getBetSlip,
   getParlayBetSlip,
 } from "../redux/actions/getAllUsersAction";
-import {getBalanceAction} from "../redux/actions/balanceAction";
+import { getBalanceAction } from "../redux/actions/balanceAction";
 import { updateBalance } from "../services/updateBalance";
+import { setTabs } from "../redux/actions/rightTabs";
 const useStyles = makeStyles((theme) => ({
   boxRelative: {
     position: "relative",
@@ -142,13 +142,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+export const BetSlipContext = createContext();
+
 export default function Sidebet(props) {
   const dispatch = useDispatch();
+  const rightTabsSelector = useSelector(
+    (state) => state?.getAllReducer?.rightTabs
+  );
   const auth = useContext(AuthContext);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [userBets, setUserBets] = React.useState([]);
-  const [tabviewsideBet, setTabViewsideBet] = useState("betSlip");
   const [loader, setLoader] = useState(false);
   const [snackBarContent, setSnackBarContent] = useState(false);
   const [snackBarMsg, setSnackBarMsg] = useState("");
@@ -159,7 +162,7 @@ export default function Sidebet(props) {
     (state) => state?.getAllReducer?.betParlaySlip
   );
 
-  useEffect(() => {}, []);
+  const userbalance = useSelector((state) => state?.getAllReducer?.balance);
 
   const snackBar = (msg, status) => {
     setSnackBarMsg(msg);
@@ -181,7 +184,6 @@ export default function Sidebet(props) {
   const betnow = async () => {
     setLoader(true);
     const amount = Number(betSlipData.totalStake);
-    console.log("amount : ", amount);
 
     var array = [];
     betSlipData.data.forEach((element) => {
@@ -195,12 +197,17 @@ export default function Sidebet(props) {
       });
     });
 
-    if (amount < 5 || amount == NaN) {
-      snackBar("Please! Enter minimum amount $5", "danger");
+    if (amount < 1 || amount == NaN) {
+      snackBar("Please! Enter minimum amount $1", "danger");
       setLoader(false);
       return;
     }
-
+    console.log(userbalance, "paisaaaa")
+     if (userbalance < amount) {
+      snackBar("Insufficent funds!", "danger");
+      setLoader(false);
+      return;
+     } 
     if (amount > 1000) {
       snackBar("Maximum amount $1000 for bet place.", "danger");
       setLoader(false);
@@ -208,7 +215,7 @@ export default function Sidebet(props) {
     }
 
     const res = await orderplace(betSlipData.totalStake);
-    const balance =  await updateBalance();
+    const balance = await updateBalance();
     if (res) {
       var bar = new Promise((resolve, reject) => {
         array.forEach((eleData, index, array) => {
@@ -292,14 +299,19 @@ export default function Sidebet(props) {
     setLoader(true);
 
     const amount = Number(betParlaySlipData.totalStake);
-    console.log("amount : ", amount);
 
-    if (amount < 5 || amount == NaN) {
-      snackBar("Please! Enter minimum amount $5", "danger");
+    if (amount < 1 || amount == NaN) {
+      snackBar("Please! Enter minimum amount $1", "danger");
       setLoader(false);
       return;
     }
+    console.log(userbalance, "paisaaaa2")
 
+    if (userbalance < amount) {
+      snackBar("Insufficent funds!", "danger");
+      setLoader(false);
+      return;
+     } 
     if (amount > 1000) {
       snackBar("Maximum amount $1000 for bet place.", "danger");
       setLoader(false);
@@ -356,14 +368,13 @@ export default function Sidebet(props) {
     const sumTotalPayout = Number(value) * sumOdds;
     setParlayWinAmount(sumTotalPayout);
     addBetslipData(array);
-    console.log(array, "arrayyyyyyy");
 
     dispatch(getParlayBetSlip(array, sumOdds, sumTotalStake, sumTotalPayout));
   };
 
   const cancelBet = (index) => {
-    console.log(index, "index");
     let array = getBetslipData();
+
     // delete array[index];
     array.splice(index, 1);
     const totalStakeArray = array.map((item) => Number(item.amount));
@@ -373,37 +384,53 @@ export default function Sidebet(props) {
     );
     const x = array.map((item) => item.checkLeague);
     const y = x?.includes(true);
-    console.log(array, "1111111111");
     sameLeagueCheck(y);
     const totalOddsArray = array.map((item) => Number(item.odds));
-    totalOddsArray.splice(index,1)
-    const sumOdds = parseFloat(totalOddsArray.reduce((partialSum, a) => partialSum * a)).toFixed(1);
+    totalOddsArray.splice(index, 1);
+    const sumOdds = parseFloat(
+      totalOddsArray.reduce((partialSum, a) => partialSum * a, 0)
+    ).toFixed(2);
+    
     const totalPayoutArray = array.map((item) => Number(item.totalWin));
     const sumTotalPayout = totalPayoutArray.reduce(
       (partialSum, a) => partialSum + a,
       0
     );
-
     addBetslipData(array);
     dispatch(getBetSlip(array, sumOdds, sumTotalStake, sumTotalPayout));
   };
+
   const clearAll = () => {
     addBetslipData([]);
     sameLeagueCheck(false);
     dispatch(getBetSlip([]));
   };
+  const handleTabMyBet = (rightTabs) => {
+    dispatch(setTabs(rightTabs));
+  };
+  const handleTabBetSlip = (rightTabs) => {
+    dispatch(setTabs(rightTabs));
+  };
+  var slipData = {
+    handleTabBetSlip: handleTabBetSlip,
+  };
+  useEffect(() => {
+    dispatch(setTabs("betSlip"));
+  }, []);
   const userRightContent = () => {
     const data = JSON.parse(localStorage.getItem("betslips"));
-
+    const checkBet = getBetslipData();
     return (
       <Box className={classes.UserBox}>
         <Box className={classes.ButtonBox}>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <Button
+                type="button"
                 fullWidth
-                className={tabviewsideBet === "betSlip" ? "active" : ""}
-                onClick={() => setTabViewsideBet("betSlip")}
+                className={rightTabsSelector === "betSlip" ? "active" : ""}
+                id="cleinttabsslip"
+                onClick={() => handleTabBetSlip("betSlip")}
               >
                 BET SLIP
               </Button>
@@ -411,15 +438,15 @@ export default function Sidebet(props) {
             <Grid item xs={6}>
               <Button
                 fullWidth
-                className={tabviewsideBet === "Mybets" ? "active" : ""}
-                onClick={() => setTabViewsideBet("Mybets")}
+                className={rightTabsSelector === "Mybets" ? "active" : ""}
+                onClick={() => handleTabMyBet("Mybets")}
               >
                 MY BETS
               </Button>
             </Grid>
           </Grid>
         </Box>
-        {tabviewsideBet === "betSlip" ? (
+        {rightTabsSelector === "betSlip" ? (
           betSlipData?.data && betSlipData?.data.length > 0 ? (
             <>
               <Box mt={2}>
@@ -428,7 +455,7 @@ export default function Sidebet(props) {
                   <Typography variant="body2" color="primary">
                     Your Bets
                   </Typography>
-                  <button onClick={clearAll}>Clear All</button>
+                  <Button onClick={clearAll}>Clear All</Button>
                 </div>
 
                 {betSlipData?.data.map((element, index) => {
@@ -459,7 +486,6 @@ export default function Sidebet(props) {
                     {betSlipData?.totalOdds}
                   </Typography>
                 </Box> */}
-
                 <Box className="justifyBetween" mb={1}>
                   <Typography
                     variant="body2"
@@ -549,7 +575,7 @@ export default function Sidebet(props) {
           ""
         )}
 
-        {tabviewsideBet === "Mybets" ? (
+        {rightTabsSelector === "Mybets" ? (
           <>
             <MyBets type="Sidebet" />
           </>
@@ -568,14 +594,14 @@ export default function Sidebet(props) {
             <Grid item xs={12}>
               <Button
                 fullWidth
-                className={tabviewsideBet === "betSlip" ? "active" : ""}
+                className={rightTabsSelector === "betSlip" ? "active" : ""}
               >
                 BET SLIP
               </Button>
             </Grid>
           </Grid>
         </Box>
-        {tabviewsideBet === "betSlip" ? (
+        {rightTabsSelector === "betSlip" ? (
           <>
             <div className={classes.boxRelative}>
               <div className={classes.boxFixedCenter}>
@@ -603,6 +629,9 @@ export default function Sidebet(props) {
         <SnackbarService msg={snackBarMsg} status={snackBarStatus} />
       )}
       {auth.isLogin() ? userRightContent() : guestRightContent()}
+      <BetSlipContext.Provider value={slipData}>
+        {props.children}
+      </BetSlipContext.Provider>
     </>
   );
 }

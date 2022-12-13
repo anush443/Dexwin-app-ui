@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles, Box, Button, Paper } from "@material-ui/core";
+import { makeStyles, Box, Button, Paper, Tooltip, Typography } from "@material-ui/core";
 import Page from "src/component/Page";
 import { BsRecord2 } from "react-icons/bs";
 import NftSlider from "../Featured/SliderCard";
@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
         position: "relative",
         top: "33px",
       },
+      tooltip: {
+        fontSize: "15px"
+      }
     },
   },
   ButtonStyle: {
@@ -69,16 +72,16 @@ export default function (props) {
             {" "}
             UPCOMING{" "}
           </Button>
-          <Button
+          <Tooltip title={<Typography className={classes.tooltip}>Coming Soon </Typography>} arrow><Button
             variant="contained"
             color="primary"
             size="large"
             className={tabview === "FUTURES" ? "active" : "nonActive"}
-            onClick={() => setTabView("FUTURES")}
+            // onClick={() => setTabView("FUTURES")} //Coming Soon
           >
             {" "}
             FUTURES{" "}
-          </Button>
+          </Button></Tooltip>
         </Box>
         {popup ? <Cosafapopup setpopup={setpopup} /> : ""}
         <Box py={2} className="tabContainer">

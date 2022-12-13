@@ -1,15 +1,12 @@
 import React, { lazy } from "react";
 import { Redirect } from "react-router-dom";
 import DashboardLayout from "src/layouts/DashboardLayout";
-// import DashboardLayoutDash from "src/layouts/DashboardLayout/indexDash";
 import HomeLayout from 'src/layouts/HomeLayout';
-// import LoginLayout from "src/layouts/LoginLayout";
 import LeaderboardLayout from "./layouts/LeaderboardLayout";
 export const routes = [
   {
     exact: true,
     path: "/",
-    // guard:true,
     layout: DashboardLayout,
     component: lazy(() => import("src/views/pages/Dashboard")),
   },
@@ -89,7 +86,6 @@ export const routes = [
   {
     exact: true,
     path: "/leaderBoard",
-    // guard:true,
     layout: LeaderboardLayout,
     component: lazy(() => import("src/views/pages/LeaderBoard/LeaderBoard")),
   },

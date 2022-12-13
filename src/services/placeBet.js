@@ -2,7 +2,6 @@ var arr = [];
 var checkLeague;
 export const addBetslipData = (array) => {
   arr = array;
-  console.log("arrService : ", arr);
 };
 
 export const getBetslipData = () => {

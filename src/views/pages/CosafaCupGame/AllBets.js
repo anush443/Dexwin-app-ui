@@ -282,7 +282,6 @@ function AllBets() {
                       componentsDetails={componentsDetails}
                       key={index}
                     /> */}
-                    {console.log(componentsDetails,"4545")}
                     <CosafaAccordion
                       componentsDetails={componentsDetails}
                       key={index}

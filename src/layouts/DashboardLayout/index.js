@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Box, Grid, Avatar, Hidden, Button, Dialog } from "@material-ui/core";
+import { Box,Avatar, Hidden, Button, Dialog } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import NavLink from "./NavLink";
 import TopBar from "./TopBar";
@@ -162,6 +162,7 @@ const DashboardLayout = ({ children, onMobileClose, openMobile }) => {
     document.getElementById("main").style.marginLeft = "290px";
     document.getElementById("openbutton").classList.add("hide");
     document.getElementById("closebutton").classList.remove("hide");
+    document.getElementById("closecut").style.display = "block";
   }
   function cloneNav() {
     document.getElementById("mySidenav").style.width = "53px";
@@ -182,7 +183,7 @@ const DashboardLayout = ({ children, onMobileClose, openMobile }) => {
       <Box>
         <div id="mySidenav" className={`${classes.sidebarleft} sidenav`}>
           <Box>
-              <div id="closecut" className={classes.cut} >HOUSE CUT: 3%</div>
+              <div id="closecut" className={classes.cut}>HOUSE CUT: 3%</div>
             <Avatar id="closebutton" onClick={cloneNav} className="closebtn ">
               <ArrowBackIcon style={{ color: "#FFFFFF !important" }} />
             </Avatar>

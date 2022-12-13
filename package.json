@@ -61,7 +61,7 @@
     "react-phone-input-2": "^2.15.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^3.4.1",
     "react-slick": "^0.28.1",
     "react-toastify": "^9.0.3",
     "redux": "^4.2.0",

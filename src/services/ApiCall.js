@@ -1,6 +1,19 @@
 import apiConfig from "src/connectors/config/ApiConfig";
 import axios from "axios";
 
+
+export const connectWalletAdd = async (add) => {
+  try {
+    const res = await axios({
+      method: "POST",
+      url: `${apiConfig.connectWalletAdd}${add}`,
+    });
+    return res;
+  } catch (error) {
+    return [];
+  }
+};
+
 export const getAPI = async (endPoint) => {
   try {
     const res = await axios({

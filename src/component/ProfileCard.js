@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
           fontSize: "20px",
           fontWeight: "600",
           fontFamily: "Red Hat Mono",
-          fontStyle: "normal"
+          fontStyle: "normal",
         },
       },
       "& .flexjustifycenter": {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
           marginLeft: "15px",
           fontWeight: "600",
           fontFamily: "Red Hat Mono",
-          fontStyle: "normal"
+          fontStyle: "normal",
         },
       },
       "& img": {
@@ -41,26 +41,15 @@ const useStyles = makeStyles((theme) => ({
     "& .priceText": {
       color: theme.palette.text.noticetext,
       fontSize: "13px",
-      fontFamily: "Red Hat Mono"
-
+      fontFamily: "Red Hat Mono",
     },
   },
 }));
 const myaccount = [
   {
-    img: "images/bnb.png",
+    img: "images/dexwinCoin.png",
     name: "0.000217",
-    price: "( $ 165.23 )",
-  },
-  {
-    img: "images/btc.png",
-    name: "0.000217",
-    price: "( $ 165.23 )",
-  },
-  {
-    img: "images/eth.png",
-    name: "0.000217",
-    price: "( $ 165.23 )",
+    price: "( $ DWIN )",
   },
 ];
 
@@ -70,7 +59,7 @@ const Flex = styled.div`
   align-items: center;
 `;
 
-const   TokenInfo = () => {
+const TokenInfo = () => {
   const classes = useStyles();
   return (
     <Box className={classes.profileCardBox}>
@@ -84,7 +73,7 @@ const   TokenInfo = () => {
             <Box className="headingBox" align="center">
               <Box style={{ padding: "10px" }}>
                 <Typography variant="body1">TOTAL BALANCE</Typography>
-                <Typography variant="h5">$ 1065.00</Typography>
+                <Typography variant="h5">$ DWIN</Typography>
               </Box>
             </Box>
 
@@ -120,7 +109,9 @@ const   TokenInfo = () => {
             <Box className="headingBox" align="center">
               <Box style={{ padding: "10px" }}>
                 <Typography variant="body1">MONEY ON BETS</Typography>
-                <Typography variant="h5" className="numericals">$ 1065.00</Typography>
+                <Typography variant="h5" className="numericals">
+                  $ DWIN
+                </Typography>
               </Box>
             </Box>
 

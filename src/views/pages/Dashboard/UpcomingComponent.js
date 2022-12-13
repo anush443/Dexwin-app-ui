@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import DashboardCard from "src/component/DashboardCard";
 import SportsBasketballIcon from "@material-ui/icons/SportsBasketball";
 import { getAllOdds } from "../../../redux/actions/getAllUsersAction";
-import { getLeaguesUpcomingGames } from "../../../redux/actions/getAllUsersAction";
 const useStyles = makeStyles((theme) => ({
   boxRelative: {
     position: "relative",
@@ -49,7 +48,6 @@ function UpcomingComponent() {
     document.title = "Upcoming Matches | Dexwin";
     setUpcommingLeaguesData(upcoming.matches);
   }, []);
-  console.log(detail, "all reducers");
 
   const noDataFoundMessage = () => {
     return (
@@ -69,21 +67,7 @@ function UpcomingComponent() {
   const upcomingDataById = useSelector(
     (state) => state?.getAllReducer?.leaguesUpcomingDataById?.data
   );
-
-  const pagination = () => {
-    const slice = upcomingDataById?.slice(offset, offset + perPage);
-    setData(slice);
-    console.log("upcomingDataById", data);
-    setPageCount(Math.ceil(upcomingDataById.length / perPage));
-  };
-  const handlePageClick = (e) => {
-    console.log(e, "eeee");
-    const selectedPage = e.selected;
-    setOffset(selectedPage + 1);
-  };
-
   const sliceData = () => {
-    console.log("perPage: ", perPage);
     const slice = upcomingDataById?.slice(offset, offset + perPage);
     setData(slice);
   };
@@ -92,15 +76,12 @@ function UpcomingComponent() {
     setPageCount(pageCount + 5);
     sliceData();
   };
-
-  console.log(upcomingDataById, "upcomingDataById");
   const showData = () => {
     return (
       <>
         <DashboardCard
           type="upcoming"
           upcomingDataById={upcomingDataById}
-          // handlePageClick={handlePageClick}
           pageCount={pageCount}
         />
 

@@ -6,13 +6,9 @@ import {
   Button,
   Menu,
   MenuItem,
-
 } from "@material-ui/core";
-
-import { BsSearch } from "react-icons/bs";
 import CosafaAccordion from "src/component/CosafaAccordion";
 import CosafaFilterComponent from "src/component/CosafaFilterComponent";
-import GloballySearchArea from "src/component/GloballySearchArea";
 import { OddsContext } from "src/context/Odds";
 // import { addBetSlip } from "src/services/placeBet";
 import SnackbarService from "src/services/SnackbarService";
@@ -33,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     float: "left",
     background: "#191919",
     borderRadius: "30px !important",
-    // minWidth:"5rem"
   },
 }));
 
@@ -73,11 +68,8 @@ function Periodic(props) {
     var threeWayArr = [];
     setOddsData([]);
     setCardData([]);
-    {console.log(oddsContext.periodicOdds,"oddsContext")}
     oddsContext.periodicOdds.forEach((elements) => {
-     
       if (elements.type == "moneyLine") {
-
         if (!isEmpty(elements.odds)) {
           moneyLineArr.push({
             text: elements.name,
@@ -97,7 +89,6 @@ function Periodic(props) {
         oddsData.push({ question: elements.name, answer: oddsArr });
       } else if (elements.type == "threeWay") {
         if (!isEmpty(elements.odds)) {
-          
           threeWayArr.push({
             text: elements.name,
             homeOdd: elements.odds.bets[0].values[0].odd,
@@ -344,7 +335,6 @@ function Periodic(props) {
     }
   };
 
-
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -354,7 +344,6 @@ function Periodic(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
 
   return (
     <>
@@ -397,11 +386,11 @@ function Periodic(props) {
 
       <Box mb={3}>
         <Grid item xs={12} alignItems="right" justifyContent="right">
-        <CosafaFilterComponent
-              type="periodic"
-              getCheckBox={getCheckBox}
-              setCheckBoxData={setCheckBoxData}
-            />
+          <CosafaFilterComponent
+            type="periodic"
+            getCheckBox={getCheckBox}
+            setCheckBoxData={setCheckBoxData}
+          />
         </Grid>
       </Box>
 

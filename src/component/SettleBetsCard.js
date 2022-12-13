@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles, Box, Typography, Paper, Button } from "@material-ui/core";
 import { IoBasketballSharp } from "react-icons/io5";
-import dateFormat from "dateformat";
-// import dexwin from "src/images/dexwin.svg";
 
 const useStyles = makeStyles((theme) => ({
   headerBetWin: {
@@ -19,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
       color: "#39AED0",
       fontSize: "16px",
       marginRight: "7px",
-      zIndex: "1"
+      zIndex: "1",
     },
     "& h6": {
       fontSize: "14px",
       lineHeight: "1.2",
       color: theme.palette.text.noticetext,
-      zIndex: "1"
+      zIndex: "1",
     },
   },
   winnig: {
@@ -69,8 +67,6 @@ const useStyles = makeStyles((theme) => ({
       height: "calc(100% + 4px)",
       width: "calc(100% + 4px)",
       backgroundColor: "transparent",
-      // backgroundImage:
-      //   "linear-gradient(315deg, #c23a28 10%, #f91f55 35%, #b621fe00 54%)",
       borderRadius: "10px",
       "& .mainBox": {
         position: "absolute",
@@ -98,13 +94,17 @@ const useStyles = makeStyles((theme) => ({
     width: "61px",
     height: "17px",
     borderRadius: "39px",
-    border: " 1px solid rgba(141, 230, 209, 1)",
-    padding: "9px"
+    borderTop: "1px solid rgba(141, 230, 209, 1)",
+    borderLeft: "1px solid rgba(141, 230, 209, 1)",
+    borderRight: "1px solid rgba(113, 254, 163, 1)",
+    borderBottom: "1px solid rgba(113, 254, 163, 1)",
+    color: "#FFFFFF",
+    padding: "9px",
   },
   Flexcontain: {
     display: "flex",
     justifyContent: "space-between",
-    gap: "30px  "
+    gap: "30px  ",
   },
   miniflex: {
     display: "flex",
@@ -117,8 +117,8 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-50%, -50%)",
   },
   zIndex1: {
-    zIndex: "1"
-  }
+    zIndex: "1",
+  },
 }));
 
 function SettleBetsCard(props) {
@@ -134,7 +134,6 @@ function SettleBetsCard(props) {
       return data?.home?.name + " - " + data?.away?.name;
     }
   };
-  console.log(data, "settle");
   return (
     <Box
       className={
@@ -143,9 +142,8 @@ function SettleBetsCard(props) {
           : `${classes.loss}`
       }
     >
-      <Paper className="mainBox" elevation={2}>
-
-      {/* <img src={dexwin} className={classes.centerImg}/> */}
+      <Paper className="mainBox" elevation={2} style={{ height: "17.3rem" }}>
+        <img src="images/dexwin.svg" className={classes.centerImg} />
         <Box className={`${classes.headerBetWin} justifyBetween`}>
           <div className={classes.Flexcontain}>
             <div>
@@ -154,13 +152,13 @@ function SettleBetsCard(props) {
                   <div className={classes.miniflex}>
                     <Typography
                       variant="body2"
-                      className="win"   
+                      className="win"
                       style={{ color: "#3BBD2A" }}
                     >
                       Win
                     </Typography>
                     &nbsp;&nbsp;
-                    <Button className={classes.claim}>Claim</Button>
+                    <Button className={classes.claim}>CLAIMED</Button>
                   </div>
                 </>
               ) : (
@@ -173,12 +171,8 @@ function SettleBetsCard(props) {
                 </Typography>
               )}
             </div>
-            <Typography variant="body2">
-              {dateFormat(data.attributes?.createdAt, "hh:MM TT dd/mm/yyyy")}
-            </Typography>
           </div>
         </Box>
-        {console.log("data.attributes?.betList: ", data.attributes?.betList)}
         <Box className={classes.secondMainBox}>
           {data.attributes?.betList?.map((ele) => {
             return (
@@ -190,12 +184,15 @@ function SettleBetsCard(props) {
                   </Typography>
                 </Box>
                 <Box className={`${classes.subtitle} justifyBetween`}>
-                  <Typography className={classes.zIndex1} variant="body2">{ele?.betType}</Typography>
-                  <Typography className={classes.zIndex1} variant="h6"> {ele?.odds} </Typography>
+                  <Typography className={classes.zIndex1} variant="body2">
+                    {ele?.betType}
+                  </Typography>
+                  <Typography className={classes.zIndex1} variant="h6">
+                    {" "}
+                    {ele?.odds}{" "}
+                  </Typography>
                 </Box>
-                {/* <Box mt={1}>
-                    <Typography variant="h6">2-3</Typography>
-                  </Box> */}
+
                 <hr style={{ border: "1px solid rgba(71, 71, 71, 0.3)" }} />
               </>
             );
@@ -203,7 +200,10 @@ function SettleBetsCard(props) {
           <Box mt={1}>
             <Box className={classes.lowerbetbox}>
               <Box className="justifyBetween">
-                <Typography variant="body1" className={`blue ${classes.zIndex1}`}>
+                <Typography
+                  variant="body1"
+                  className={`blue ${classes.zIndex1}`}
+                >
                   Total Odds
                 </Typography>
                 <Typography variant="h6" className={classes.zIndex1}>
@@ -211,19 +211,31 @@ function SettleBetsCard(props) {
                 </Typography>
               </Box>
               <Box className="justifyBetween">
-                <Typography variant="body1" className={`blue ${classes.zIndex1}`}>
+                <Typography
+                  variant="body1"
+                  className={`blue ${classes.zIndex1}`}
+                >
                   Total Stake
                 </Typography>
-                <Typography variant="body1" className={`icontext ${classes.zIndex1}`}>
+                <Typography
+                  variant="body1"
+                  className={`icontext ${classes.zIndex1}`}
+                >
                   {" "}
                   $ {data.attributes?.totalStake}{" "}
                 </Typography>
               </Box>
               <Box className="justifyBetween">
-                <Typography variant="body1" className={`blue ${classes.zIndex1}`}>
+                <Typography
+                  variant="body1"
+                  className={`blue ${classes.zIndex1}`}
+                >
                   Payout
                 </Typography>
-                <Typography variant="body1" className={`icontext green ${classes.zIndex1}`} >
+                <Typography
+                  variant="body1"
+                  className={`icontext green ${classes.zIndex1}`}
+                >
                   {" "}
                   $ {data.attributes?.totalPayout}{" "}
                 </Typography>

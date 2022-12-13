@@ -5,7 +5,7 @@ const Logo = (props) => {
   return (
     <img
       onClick={() => history.push("/explore")}
-      src="/images/logo.png"
+      src="/images/logo.svg"
       alt="Logo"
       style={{ cursor: "pointer" }}
       {...props}

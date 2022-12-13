@@ -6,13 +6,9 @@ import {
   Button,
   Menu,
   MenuItem,
-
 } from "@material-ui/core";
-import { BsSearch } from "react-icons/bs";
 import CosafaAccordion from "src/component/CosafaAccordion";
 import CosafaFilterComponent from "src/component/CosafaFilterComponent";
-import GloballySearchArea from "src/component/GloballySearchArea";
-
 import { OddsContext } from "src/context/Odds";
 import { useContext } from "react";
 
@@ -25,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     float: "left",
     background: "#191919",
     borderRadius: "30px !important",
-    // minWidth:"5rem"
   },
 }));
 
@@ -33,17 +28,12 @@ function Exotic(props) {
   var filterData = [];
   const oddsContext = useContext(OddsContext);
   const { exoticCardData, type, matchId , details} = props;
-
   const exoticD = oddsContext.exoticD;
   const [cardData, setCardData] = useState([]);
   const [oddsData, setOddsData] = useState([]);
   const [showData, setShowData] = useState([]);
   const [query, setQuery] = useState("");
-
   const [checkBoxData, setCheckBoxData] = useState([]);
-  console.log(cardData, "cardData");
-  console.log(matchId, "matchIdExotic");
-  console.log(details, "detailsexotic");
 
   useEffect(() => {
     setOddsData([]);
@@ -297,7 +287,6 @@ function Exotic(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-console.log(showData,"888888888888")
   return (
     <>
       <Box>

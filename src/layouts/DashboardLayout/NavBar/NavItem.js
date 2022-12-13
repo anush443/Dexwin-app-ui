@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   buttonLeaf: {
-    // color: "#000000",
     padding: "10px 8px",
     justifyContent: "flex-start",
     textTransform: "none",

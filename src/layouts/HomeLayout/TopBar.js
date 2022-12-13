@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   iconbutton: {
-    // color: theme.palette.secondary.main,
     color: "#9F9F9F",
     position: "relative",
     marginRight: "10px",

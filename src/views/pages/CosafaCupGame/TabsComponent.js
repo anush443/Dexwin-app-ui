@@ -2,38 +2,40 @@ import React, { useState } from "react";
 import {
   makeStyles,
   Box,
-  Paper,
+  Tooltip,
+  Typography,
   Button,
-  Grid,
-  Avatar,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  IconButton,
-  InputAdornment,
+  //Coming soon
+  // InputAdornment,
+  // Paper,
+  // Grid,
+  // Avatar,
+  // Dialog,
+  // DialogContent,
+  // DialogTitle,
+  // TextField,
+  // IconButton,
 } from "@material-ui/core";
-import { BsSearch } from "react-icons/bs";
 import Popular from "./Popular";
-import BetBuilder from "./BetBuilder";
+import "react-multi-carousel/lib/styles.css";
 import Periodic from "./Periodic";
 import ExoticComponent from "./Exotic";
-import PropsIndex from "./Props/PropsIndex";
-import AllBets from "./AllBets";
-import Spot from "./Spot";
-import Players from "./Players";
 import { ModalContext } from "src/component/context";
-import BetBuilderModal from "src/component/BetBuilderModal";
-import FuturesComponent from "src/views/pages/Dashboard/FuturesComponent";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import Dropdown from "react-dropdown";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-
+//Coming Soon
+// import BetBuilder from "./BetBuilder";
+// import { BsSearch } from "react-icons/bs";
+// import PropsIndex from "./Props/PropsIndex";
+// import AllBets from "./AllBets";
+// import Spot from "./Spot";
+// import Players from "./Players";
+// import BetBuilderModal from "src/component/BetBuilderModal";
+// import FuturesComponent from "src/views/pages/Dashboard/FuturesComponent";
+// import Carousel from "react-multi-carousel";
+// import Dropdown from "react-dropdown";
+// import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 5,
   },
@@ -79,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
   maincontent: {
     padding: "0px 40px",
-    height: "450px !important",
+    height: "auto !important",
     overflow: "auto",
     [theme.breakpoints.down("xs")]: {
       padding: "0px 10px",
@@ -88,12 +90,10 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     backgroundColor: "#2B2B2B !important",
     borderRadius: "30px !important",
-    // borderRadius: '100px !important', width: '8rem !important', padding: '15px'
   },
   btneuro: {
     backgroundColor: "#2B2B2B !important",
     borderRadius: "30px !important",
-    // borderRadius: '100px !important', width: '9rem !important', padding: '14px'
   },
   btn1: {
     backgroundColor: "#2B2B2B !important",
@@ -114,31 +114,42 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "grey",
     padding: "2rem",
   },
+  tooltip: {
+    fontSize: "15px",
+  },
 }));
 
 export default function (props) {
-  const { liveLeaguesdata, upcommingleaguesData, matchId, teams, scores, league, type, details } = props;
+  const {
+    liveLeaguesdata,
+    upcommingleaguesData,
+    matchId,
+    teams,
+    scores,
+    league,
+    type,
+    details,
+  } = props;
   const classes = useStyles();
   const [showModal, updateShowModal] = React.useState(false);
   const toggleModal = () => updateShowModal((state) => !state);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [open, setOpen] = React.useState(false);
   const options = ["NBA", "CBA", "FBA"];
   const defaultOption = options[0];
   const [tabview, setTabView] = useState("POPULAR");
-  const handleClickOpen = () => {
-    setDialogOpen(true);
-  };
-  const handleClose = () => {
-    setDialogOpen(false);
-  };
-  console.log(props.Data, "data");
+  // const [dialogOpen, setDialogOpen] = useState(false);
+  // const [open, setOpen] = React.useState(false);              // Coming Soon
 
-  console.log(details, "detailstabs");
+  // const handleClickOpen = () => {
+  //   setDialogOpen(true);
+  // };                                 // Coming Soon
+  // const handleClose = () => {
+  //   setDialogOpen(false);
+  // };
+
   return (
     <>
       <Box className={classes.PostBox}>
-        <Grid
+        {/* <Grid
           xs={12}
           spacing={2}
           style={{
@@ -208,90 +219,143 @@ export default function (props) {
       
             </Carousel>
           </Grid>
-        </Grid>
+        </Grid> */}
         <Box className="butnsec">
-          <Button
-            className={tabview === "POPULAR" ? "active" : ""}
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={() => setTabView("POPULAR")}
+          <Tooltip
+            title={<Typography className={classes.tooltip}>Popular</Typography>}
+            arrow
           >
-            POPULAR
-          </Button>
-          <Button
-            className={tabview === "PROPS" ? "active" : ""}
-            onClick={() => setTabView("PROPS")}
-            variant="contained"
-            color="primary"
-            size="large"
+            <Button
+              className={tabview === "POPULAR" ? "active" : ""}
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => setTabView("POPULAR")}
+            >
+              POPULAR
+            </Button>
+          </Tooltip>
+          <Tooltip
+            title={<Typography className={classes.tooltip}>Exotic</Typography>}
+            arrow
           >
-            PROPS
-          </Button>
-          <Button
-            className={tabview === "SPOT" ? "active" : ""}
-            onClick={() => setTabView("SPOT")}
-            variant="contained"
-            color="primary"
-            size="large"
+            <Button
+              className={tabview === "exotic" ? "active" : ""}
+              onClick={() => setTabView("exotic")}
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              EXOTIC
+            </Button>
+          </Tooltip>
+          <Tooltip
+            title={
+              <Typography className={classes.tooltip}>Periodic</Typography>
+            }
+            arrow
           >
-            SPOT
-          </Button>
-          <Button
-            className={tabview === "exotic" ? "active" : ""}
-            onClick={() => setTabView("exotic")}
-            variant="contained"
-            color="primary"
-            size="large"
+            <Button
+              className={tabview === "periodic" ? "active" : ""}
+              onClick={() => setTabView("periodic")}
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              PERIODIC
+            </Button>
+          </Tooltip>
+          <Tooltip
+            title={
+              <Typography className={classes.tooltip}>Coming Soon</Typography>
+            }
+            arrow
           >
-            EXOTIC
-          </Button>
-          <Button
-            className={tabview === "periodic" ? "active" : ""}
-            onClick={() => setTabView("periodic")}
-            variant="contained"
-            color="primary"
-            size="large"
+            <Button
+              className={tabview === "PROPS" ? "active" : ""}
+              onClick={() => setTabView("PROPS")}
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              PROPS
+            </Button>
+          </Tooltip>
+          <Tooltip
+            title={
+              <Typography className={classes.tooltip}>Coming Soon</Typography>
+            }
+            arrow
           >
-            PERIODIC
-          </Button>
-          <Button
-            className={tabview === "players" ? "active" : ""}
-            onClick={() => setTabView("players")}
-            variant="contained"
-            color="primary"
-            size="large"
+            <Button
+              className={tabview === "SPOT" ? "active" : ""}
+              onClick={() => setTabView("SPOT")}
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              SPOT
+            </Button>
+          </Tooltip>
+          <Tooltip
+            title={
+              <Typography className={classes.tooltip}>Coming Soon</Typography>
+            }
+            arrow
           >
-            PARLAYS
-          </Button>
-          {/* <Button
-            className={tabview === "BUILDER" ? "active" : ""}
-            onClick={toggleModal}
-            variant="contained"
-            color="primary"
-            size="large"
+            <Button
+              className={tabview === "players" ? "active" : ""}
+              onClick={() => setTabView("players")}
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              PARLAYS
+            </Button>
+          </Tooltip>
+          <Tooltip
+            title={
+              <Typography className={classes.tooltip}>Coming Soon</Typography>
+            }
+            arrow
           >
-            BET BUILDER
-          </Button> */}
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            className={tabview === "allBets" ? "active" : ""}
-            onClick={() => setTabView("allBets")}
+            <Button
+              className={tabview === "BUILDER" ? "active" : ""}
+              onClick={toggleModal}
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              BET BUILDER
+            </Button>
+          </Tooltip>
+          <Tooltip
+            title={
+              <Typography className={classes.tooltip}>Coming Soon</Typography>
+            }
+            arrow
           >
-            ALL BETS
-          </Button>{" "}
-          <Avatar className={classes.SearchIcon}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              className={tabview === "allBets" ? "active" : ""}
+              onClick={() => setTabView("allBets")}
+            >
+              ALL BETS
+            </Button>
+          </Tooltip>
+          {/* <Avatar className={classes.SearchIcon}>
             <BsSearch
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer" }}              // Coming Soon
               onClick={() => setDialogOpen(true)}
             />
-          </Avatar>
+          </Avatar> */}
         </Box>
       </Box>
 
-      <Dialog
+      {/*------------------------------------- Coming Soon --------------------------------------- */}
+      {/* <Dialog
         maxWidth="lg"
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
@@ -338,20 +402,23 @@ export default function (props) {
           </Box>
           <FuturesComponent />
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
       <Box className="tabContainer">
         <Box className={classes.maincontent}>
           {tabview === "POPULAR" ? (
-            <Popular details={details} type={type} liveLeaguesdata={liveLeaguesdata} upcommingleaguesData={upcommingleaguesData} matchId={matchId} teams={teams} scores={scores} league={league} />
+            <Popular
+              details={details}
+              type={type}
+              liveLeaguesdata={liveLeaguesdata}
+              upcommingleaguesData={upcommingleaguesData}
+              matchId={matchId}
+              teams={teams}
+              scores={scores}
+              league={league}
+            />
           ) : (
             <Popular />
           )}
-          {tabview === "PROPS" ? (
-            <PropsIndex type={type} matchId={matchId} />
-          ) : (
-            ""
-          )}
-          {tabview === "SPOT" ? <Spot type={type} matchId={matchId} /> : ""}
           {tabview === "exotic" ? (
             <ExoticComponent details={details} type={type} matchId={matchId} />
           ) : (
@@ -362,7 +429,13 @@ export default function (props) {
           ) : (
             ""
           )}
-          {tabview === "players" ? (
+          {/* {tabview === "PROPS" ? (
+            <PropsIndex type={type} matchId={matchId} />
+          ) : (
+            ""
+          )}
+          {tabview === "SPOT" ? <Spot type={type} matchId={matchId} /> : ""}
+          {tabview === "players" ? (                                               // Coming Soon
             <Players type={type} matchId={matchId} />
           ) : (
             ""
@@ -371,14 +444,14 @@ export default function (props) {
             <AllBets type={type} matchId={matchId} />
           ) : (
             ""
-          )}
+          )} */}
         </Box>
       </Box>
       <ModalContext.Provider value={{ showModal, toggleModal }}>
         <div>
-          <BetBuilderModal canShow={showModal} updateModalState={toggleModal}>
+          {/* <BetBuilderModal canShow={showModal} updateModalState={toggleModal}>  // Coming Soon
             <BetBuilder type="betBuilderModal" />
-          </BetBuilderModal>
+          </BetBuilderModal> */}
         </div>
       </ModalContext.Provider>
     </>

@@ -7,10 +7,9 @@ import {
   TextField,
   InputAdornment,
   Grid,
-  Switch,
 } from "@material-ui/core";
 import clsx from "clsx";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { getSameLeagueCheck } from "../services/placeBet";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,12 +37,10 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px",
     "& svg": { marginRight: "7px", fontSize: "20px" },
   },
-  hide:{
-    display:"none"
+  hide: {
+    display: "none",
   },
-  show:{
- 
-  },
+  show: {},
   betdetails: {
     "& h5": {
       color: theme.palette.text.noticetext,
@@ -97,104 +94,105 @@ export default function (props) {
   };
   const betSlipData = useSelector((state) => state?.getAllReducer?.betSlip);
   const leagueCheck = getSameLeagueCheck();
-  console.log(leagueCheck,"leagueCheck")
+  const parlaywin = Math.floor(parlayWinAmount)
   return (
-  <>
-
-    <Box
-      className={leagueCheck === true ? classes.betBoxError : classes.betBox}
-    >
-      <div className={betSlipData.data.length === 1 ? classes.hide : classes.show}>
-        <Box mt={1} className={`${classes.betdetails} justifyBetween`}>
-          <Typography variant="body2" color="white">
-            {betSlipData?.data?.length} Leg Parlay
-          </Typography>
-          <Typography variant="h5" color="white">
-            {betSlipData?.totalOdds}
-          </Typography>
-        </Box>
-        <Box mt={2}>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <TextField
-                label="Wager"
-                placeholder="0"
-                id="inputID"
-                fullWidth
-                value={parlayAmount}
-                onChange={(e) => handleMultipleBets(e)}
-                className={clsx(classes.textField)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment
-                      position="start"
-                      style={{
-                        color: " #FA9131",
-                        fontSize: "18px",
-                      }}
-                    >
-                      <Typography variant="h6">$</Typography>
-                    </InputAdornment>
-                  ),
-                }}
-                variant="filled"
-              />
+    <>
+      <Box
+        className={leagueCheck === true ? classes.betBoxError : classes.betBox}
+      >
+        <div
+          className={
+            betSlipData.data.length === 1 ? classes.hide : classes.show
+          }
+        >
+          <Box mt={1} className={`${classes.betdetails} justifyBetween`}>
+            <Typography variant="body2" color="white">
+              {betSlipData?.data?.length} Leg Parlay
+            </Typography>
+            <Typography variant="h5" color="white">
+              {Number(betSlipData?.totalOdds).toFixed(2)}
+            </Typography>
+          </Box>
+          <Box mt={2}>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  label="Wager"
+                  placeholder="0"
+                  id="inputID"
+                  fullWidth
+                  value={parlayAmount}
+                  onChange={(e) => handleMultipleBets(e)}
+                  className={clsx(classes.textField)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment
+                        position="start"
+                        style={{
+                          color: " #FA9131",
+                          fontSize: "18px",
+                        }}
+                      >
+                        <img src="images/token.svg" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="filled"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="To Win"
+                  placeholder="0"
+                  id="inputID"
+                  fullWidth
+                  value={parlaywin}
+                  className={clsx(classes.textField)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment
+                        position="start"
+                        style={{
+                          color: " #FA9131",
+                          fontSize: "18px",
+                        }}
+                      >
+                        <img src="images/token.svg" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="filled"
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="To Win"
-                placeholder="0"
-                id="inputID"
+          </Box>
+          <Box textAlign="center" my={2}>
+            <Typography variant="body2" color="white">
+              Odds have increased for your section
+            </Typography>
+          </Box>
+          <Box mt={2} align="center">
+            {leagueCheck === true ? (
+              <Button className={classes.sameLeaguesError}>
+                {" "}
+                Odds of same league are not allowed for parlay only
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                size="large"
                 fullWidth
-                value={parlayWinAmount}
-                className={clsx(classes.textField)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment
-                      position="start"
-                      style={{
-                        color: " #FA9131",
-                        fontSize: "18px",
-                      }}
-                    >
-                      <Typography variant="h6">$</Typography>
-                    </InputAdornment>
-                  ),
+                onClick={() => {
+                  parlayBetNow();
                 }}
-                variant="filled"
-              />
-            </Grid>
-          </Grid>
-        </Box>
-        <Box textAlign="center" my={2}>
-          <Typography variant="body2" color="white">
-            Odds have increased for your section
-          </Typography>
-        </Box>
-        <Box mt={2} align="center">
-          {leagueCheck === true ? (
-            <Button className={classes.sameLeaguesError}>
-              {" "}
-              Odds of same league are not allowed for parlay only
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              size="large"
-              fullWidth
-              onClick={() => {
-                parlayBetNow();
-              }}
-              className={classes.whiteButton}
-            >
-              Place Parley Bet
-            </Button>
-          )}
-        </Box>
-      </div>
-    </Box>
-
-
+                className={classes.whiteButton}
+              >
+                Place Parlay Bet
+              </Button>
+            )}
+          </Box>
+        </div>
+      </Box>
     </>
   );
 }

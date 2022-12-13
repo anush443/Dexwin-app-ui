@@ -73,6 +73,11 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  playerIcon: {
+    width: "14px !important",
+    height: "8px !important",
+    borderRadius: "50% !important",
+  },
 }));
 
 export default function (props) {
@@ -145,7 +150,6 @@ export default function (props) {
     });
     const x = array.map((item) => item.checkLeague);
     const y = x?.includes(true);
-    console.log(x, y, "1111111111");
     sameLeagueCheck(y);
     const totalOddsArray = array.map((item) => Number(item.odds));
     const totalStakeArray = array.map((item) => Number(item.amount));
@@ -160,7 +164,7 @@ export default function (props) {
     );
     let sumOdds = parseFloat(
       totalOddsArray.reduce((partialSum, a) => partialSum * a)
-    ).toFixed(1);
+    ).toFixed(2);
 
     addBetslipData(array);
     const a = Number(sumOdds);
@@ -221,26 +225,20 @@ export default function (props) {
         stepArr.push(initValue);
         initValue = initValue + 100 / lastPercentage;
       }
-
       setStepPercentageSpreadArr(stepArr);
-
-      setValue(stepArr[0])
-      setSpreadsPoints(pointsArr[0])
+      setValue(stepArr[0]);
+      setSpreadsPoints(pointsArr[0]);
 
       arr.forEach((element) => {
         if (
           element.value.includes(pointsArr[0]) &&
           element.value.includes("Home")
         ) {
-          // arr.push(element);
-
           setHome(element.odd);
         } else if (
           element.value.includes(pointsArr[0]) &&
           element.value.includes("Away")
         ) {
-          // arr.push(element);
-
           setAway(element.odd);
         }
       });
@@ -292,21 +290,19 @@ export default function (props) {
 
       setStepPercentageOverUnderArr(stepArr);
 
-      setValue(stepArr[0])
-      setOverUndersPoints(pointsArr[0])
+      setValue(stepArr[0]);
+      setOverUndersPoints(pointsArr[0]);
 
       arr.forEach((element) => {
         if (
           element.value.includes(pointsArr[0]) &&
           element.value.includes("Under")
         ) {
-
           setUnder(element.odd);
         } else if (
           element.value.includes(pointsArr[0]) &&
           element.value.includes("Over")
         ) {
-
           setOver(element.odd);
         }
       });
@@ -393,9 +389,7 @@ export default function (props) {
     return (
       <Box className={classes.mainsec}>
         <Box className={classes.mainCircularSlider}>
-          <Box className="minuscounter">
-            {/* <Typography variant="h6">-5</Typography> */}
-          </Box>
+          <Box className="minuscounter"></Box>
           <Box className="PostBox">
             {!isEmptyText(away) ? (
               <Tooltip
@@ -425,7 +419,15 @@ export default function (props) {
                   );
                 }}
               >
-                &nbsp;&nbsp;
+                <img
+                  className={classes.playerIcon}
+                  src={
+                    gameData?.teams?.away?.logo
+                      ? gameData?.teams?.away?.logo
+                      : ""
+                  }
+                />{" "}
+                &nbsp;
                 <Typography
                   variant="body1"
                   position="absolute"
@@ -553,7 +555,6 @@ export default function (props) {
                 </Typography>
               </Box>
             )}
-            
 
             {!isEmptyText(under) ? (
               <Tooltip
@@ -640,4 +641,3 @@ export default function (props) {
     </>
   );
 }
-

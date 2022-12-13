@@ -63,7 +63,7 @@ const headersData = [
     href: "/referrals",
     icon: "images/group.svg",
     active: "images/refblue.svg",
-    tooltipName: "Coming Soon"
+    tooltipName: "Referral"
   },
   {
     label: "Leaderboard",

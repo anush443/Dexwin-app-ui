@@ -10,8 +10,6 @@ import {
 } from "@material-ui/core";
 import clsx from "clsx";
 import { IoBasketballOutline } from "react-icons/io5";
-import { useSelector, useDispatch } from "react-redux";
-import { getBetSlip } from "../redux/actions/getAllUsersAction";
 
 const useStyles = makeStyles((theme) => ({
   betBox: {
@@ -64,10 +62,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function (props) {
-  const dispatch = useDispatch();
-  const betSlipData = useSelector((state) => state?.getAllReducer?.betSlip);
   const classes = useStyles();
-  const { element, getBetSlips, handleAmount, index,inputList,handleInputChange, cancelBet } = props;
+  const {
+    element,
+    getBetSlips,
+    handleAmount,
+    index,
+    inputList,
+    handleInputChange,
+    cancelBet,
+  } = props;
   const [winAmount, setWinAmount] = useState(0);
 
   const getTeamName = (data, bettype) => {
@@ -89,8 +93,6 @@ export default function (props) {
       return data?.away?.logo;
     }
   };
-
-
 
   return (
     <Paper className={classes.betBox} elevation={2}>
@@ -154,7 +156,7 @@ export default function (props) {
                 onChange={(e) => handleInputChange(e, index, element)}
                 className={clsx(classes.textField)}
                 InputProps={{
-                   inputProps: { min: 0 } ,
+                  inputProps: { min: 0 },
                   startAdornment: (
                     <InputAdornment
                       position="start"
@@ -163,7 +165,7 @@ export default function (props) {
                         fontSize: "18px",
                       }}
                     >
-                      <Typography variant="h6">$</Typography>
+                      <img src="images/token.svg" />
                     </InputAdornment>
                   ),
                 }}
@@ -186,7 +188,7 @@ export default function (props) {
                         fontSize: "18px",
                       }}
                     >
-                      <Typography variant="h6">$</Typography>
+                      <img src="images/token.svg" />
                     </InputAdornment>
                   ),
                 }}

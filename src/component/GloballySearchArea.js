@@ -9,6 +9,8 @@ import {
   DialogContent,
   DialogTitle,
   Button,
+  Tooltip,
+  Typography,
 } from "@material-ui/core";
 import { BsSearch } from "react-icons/bs";
 import FuturesComponent from "src/views/pages/Dashboard/FuturesComponent";
@@ -28,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
         },
       },
     },
+  },
+  tooltip: {
+    fontSize: "15px",
   },
 }));
 
@@ -59,71 +64,78 @@ function GloballySearchArea(props) {
 
   return (
     <>
-      <Box className={classes.root}>
-        {type === "TopHeaderSearchArea" ? (
-          <Button
-            // id="outlined-basic"
-            // type="button"
-            value={"Search"}
-            variant="contained"
-            color="primary"
-            style={{
-              background: "#222222",
-              boxShadow: "inset -10px -10px 20px rgb(255 255 255 / 10%), inset 10px 10px 20px rgb(0 0 0 / 50%)",
-              borderRadius: "68px",
-              height: "50px",
-              display: "flex",
-              justifyContent: "left",
-              fontFamily: "Poppins",
-              fontStyle: "normal",
-              fontWeight: "400",
-              fontSize: "16px",
-              color: "#FFFFFF",
-            }}
-            fullWidth
-            // className="searchBox"
-            onClick={() => setDialogOpen(true)}
-          >
-            <InputAdornment position="start">
-              <IconButton
-                style={{ fontSize: "20px", padding: "0px" }}
-                className="iconbtn"
-              >
-                <BsSearch style={{ color: "#FFFFFF", fontSize: "16px" }} />
-              </IconButton>
-            </InputAdornment>{" "}
-            Search
-          </Button>
-        ) : (
-          <Box>
-            <TextField
-              id="outlined-basic"
-              type="search"
-              variant="outlined"
-              fullWidth
-              placeholder="Search"
-              className="searchBox"
-              value={query}
-              onChange={(event) => changeHandler(event)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    {" "}
-                    <IconButton
-                      style={{ fontSize: "20px", padding: "0px" }}
-                      className="iconbtn"
-                    >
-                      <BsSearch
-                        style={{ color: "#8d8d8f", fontSize: "16px" }}
-                      />
-                    </IconButton>{" "}
-                  </InputAdornment>
-                ),
+      <Tooltip
+        title={<Typography className={classes.tooltip}>Coming Soon</Typography>}
+        arrow
+      >
+        <Box className={classes.root}>
+          {type === "TopHeaderSearchArea" ? (
+            <Button
+              // id="outlined-basic"
+              // type="button"
+              value={"Search"}
+              variant="contained"
+              color="primary"
+              style={{
+                background: "#222222",
+                boxShadow:
+                  "inset -10px -10px 20px rgb(255 255 255 / 10%), inset 10px 10px 20px rgb(0 0 0 / 50%)",
+                borderRadius: "68px",
+                height: "50px",
+                display: "flex",
+                justifyContent: "left",
+                fontFamily: "Poppins",
+                fontStyle: "normal",
+                fontWeight: "400",
+                fontSize: "16px",
+                color: "#FFFFFF",
               }}
-            />
-          </Box>
-        )}
-      </Box>
+              fullWidth
+              // className="searchBox"
+              onClick={() => setDialogOpen(true)}
+              disabled
+            >
+              <InputAdornment position="start">
+                <IconButton
+                  style={{ fontSize: "20px", padding: "0px" }}
+                  className="iconbtn"
+                >
+                  <BsSearch style={{ color: "#FFFFFF", fontSize: "16px" }} />
+                </IconButton>
+              </InputAdornment>{" "}
+              Search
+            </Button>
+          ) : (
+            <Box>
+              <TextField
+                id="outlined-basic"
+                type="search"
+                variant="outlined"
+                fullWidth
+                placeholder="Search"
+                className="searchBox"
+                value={query}
+                onChange={(event) => changeHandler(event)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      {" "}
+                      <IconButton
+                        style={{ fontSize: "20px", padding: "0px" }}
+                        className="iconbtn"
+                      >
+                        <BsSearch
+                          style={{ color: "#8d8d8f", fontSize: "16px" }}
+                        />
+                      </IconButton>{" "}
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
+          )}
+        </Box>
+      </Tooltip>
       <Dialog
         maxWidth="lg"
         open={dialogOpen}

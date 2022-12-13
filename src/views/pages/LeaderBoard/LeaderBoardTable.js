@@ -6,24 +6,18 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Pagination from "@material-ui/lab/Pagination";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    // background: theme.palette.background.tablehead,
     background: "#1A1A1A",
-    // padding: "10px 30px",
-
   },
   body: {
     borderTop: " none !important",
     fontSize: 12,
-    // padding: "10px 30px",
 
     "@media (min-width: 1280px) and (max-width: 1374px)": {
       fontSize: 10,
-      // padding: "2px 3px",
-    }
+    },
   },
 }))(TableCell);
 
@@ -31,11 +25,8 @@ const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(even)": {
       background: theme.palette.background.tablebody,
-      // background: "#323339",
     },
-    "&:nth-of-type(odd)": {
-      // background: "#383940",
-    },
+    "&:nth-of-type(odd)": {},
   },
 }))(TableRow);
 
@@ -184,12 +175,10 @@ const useStyles = makeStyles((theme) => ({
     // minWidth: 900,
     "& .tableHead": {
       background: theme.palette.background.heading,
-      
     },
     "@media (max-width: 1474px)": {
       fontSize: 10,
-    }
-
+    },
   },
   paginationBox: {
     display: "flex",
@@ -213,8 +202,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    
-    
   },
   serialNo1: {
     border: "0.3px solid rgba(255, 255, 255, 0.4)",
@@ -268,7 +255,7 @@ export default function CustomizedTables() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <StyledTableRow key={row.name} >
+            <StyledTableRow key={row.name}>
               <StyledTableCell>
                 <Box
                   className={
@@ -291,18 +278,23 @@ export default function CustomizedTables() {
                   <Typography>{row.calories}</Typography>
                 </Box> */}
 
-                <Box className="flexjustify" style={{justifyContent:"center"}}>
-                <img src={row.icon} alt="imag1" width="30px" /> &nbsp;
-                  <Typography>{row.calories}</Typography>                
-                  </Box>
-
+                <Box
+                  className="flexjustify"
+                  style={{ justifyContent: "center" }}
+                >
+                  <img src={row.icon} alt="imag1" width="30px" /> &nbsp;
+                  <Typography>{row.calories}</Typography>
+                </Box>
               </StyledTableCell>
               <StyledTableCell align="center">{row.fat}</StyledTableCell>
               <StyledTableCell align="center">{row.carbs}</StyledTableCell>
               <StyledTableCell align="center">{row.protein}</StyledTableCell>
               <StyledTableCell align="center">{row.protein}</StyledTableCell>
-              <StyledTableCell >
-                <Box className="flexjustify" style={{justifyContent:"center"}}>
+              <StyledTableCell>
+                <Box
+                  className="flexjustify"
+                  style={{ justifyContent: "center" }}
+                >
                   <img src={row.Nbl} alt="imag" /> &nbsp;
                   {row.protein}
                 </Box>

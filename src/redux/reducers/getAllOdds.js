@@ -3,11 +3,11 @@ import {ActionTypes} from "../constants/action-type";
 const initialState ={
     allOddsData:{},
     loading:true,
-    error:""
+    error:"",
+    rightTabs:""
 }
 
 export const getAllReducer = (state= initialState ,{type, payload})=>{
-    console.log("chala",payload);
     switch(type){
         case ActionTypes.GET_ODDS:
             return {
@@ -25,7 +25,6 @@ export const getAllReducer = (state= initialState ,{type, payload})=>{
                         betParlaySlip:payload
                     }
                 case ActionTypes.GET_LEAGUES_GAMES:
-                    console.log("55555")
                     return {
                         ...state,
                         leaguesDataById:payload
@@ -40,6 +39,11 @@ export const getAllReducer = (state= initialState ,{type, payload})=>{
                                 ...state,
                                 balance:payload
                             }
+                            case ActionTypes.SET_TAB:
+                                return {
+                                    ...state,
+                                    rightTabs:payload
+                                }
         default:
              return {
             state

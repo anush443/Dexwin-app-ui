@@ -98,6 +98,7 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-page.Mui-sele
 }
 
 .hidden .menuitem {
+  display: inline-flex;
   padding: 10px 10px !important;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -670,7 +671,7 @@ input:-webkit-autofill {
   /* overflow-y: scroll !important;
   overflow-x: hidden; */
   padding-right: 11px;
-  height: 520px !important;
+  height: auto !important;
   cursor: pointer;
 }
 .outerContainer {
@@ -719,7 +720,7 @@ input:-webkit-autofill {
 
 /* react slick slider customization */
 .slick-slider {
-  padding: 23px 38px 0 35px !important;
+  padding: 40px 38px 0 35px !important;
 }
 
 .slick-prev {
@@ -740,12 +741,12 @@ input:-webkit-autofill {
 }
 
 .nextArrow {
-  top: 81px;
+  top: 120px;
   right: -5px;
 }
 
 .prevArrow {
-  top: 81px;
+  top: 120px;
   left: 0px;
 }
 
@@ -915,3 +916,15 @@ margin-top: 0px !important;
 /* .MuiGrid-spacing-xs-2{
   width: calc(100% + 20rem) !important;
 } */
+.MuiInput-root .active{
+    border: 1px solid rgb(51, 153, 170);
+}
+.MuiInput-root .nonactive{
+  border: 1px solid red;
+}
+.MuiInput-root .active{
+  border: 1px solid rgb(51, 153, 170);
+}
+.MuiInput-root .nonactive{
+  border: 1px solid red;
+}

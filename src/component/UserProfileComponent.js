@@ -9,6 +9,7 @@ import {
   Button,
   Paper,
   IconButton,
+  Tooltip,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { MdOutlineContentCopy, MdCheck } from "react-icons/md";
@@ -45,8 +46,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "15px"
-  }
+    marginTop: "15px",
+  },
+  tooltip: {
+    fontSize: "15px",
+  },
 }));
 
 function UserProfileComponent() {
@@ -54,7 +58,6 @@ function UserProfileComponent() {
   const history = useHistory();
   const [address, setAddress] = useState([]);
   const [copySuccess, setCopySuccess] = useState(false);
-
   const [snackBarContent, setSnackBarContent] = useState(false);
   const [snackBarMsg, setSnackBarMsg] = useState("");
   const [snackBarStatus, setSnackBarStatus] = useState("");
@@ -183,67 +186,108 @@ function UserProfileComponent() {
           <Grid container alignItems="center" spacing={2}>
             <Grid item xs={6} align="left">
               <Box className={classes.modalButtonBox}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  onClick={() => history.push("/my-account")}
+                <Tooltip
+                  title={
+                    <Typography className={classes.tooltip}>
+                      Coming Soon
+                    </Typography>
+                  }
+                  arrow
                 >
-                  View profile
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    // onClick={() => history.push("/my-account")}       Coming Soon
+                  >
+                    View profile
+                  </Button>
+                </Tooltip>
               </Box>
             </Grid>
             <Grid item xs={6} align="left">
               <Box className={classes.modalButtonBox}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  onClick={() => history.push("/wallet")}
+                <Tooltip
+                  title={
+                    <Typography className={classes.tooltip}>Wallet</Typography>
+                  }
+                  arrow
                 >
-                  Wallet
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => history.push("/wallet")}
+                  >
+                    Wallet
+                  </Button>
+                </Tooltip>
               </Box>
             </Grid>
             <Grid item xs={6} align="left">
               <Box className={classes.modalButtonBox}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  onClick={() => history.push("/my-bets")}
+                <Tooltip
+                  title={
+                    <Typography className={classes.tooltip}>My Bets</Typography>
+                  }
+                  arrow
                 >
-                  My Bets
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => history.push("/my-bets")}
+                  >
+                    My Bets
+                  </Button>
+                </Tooltip>
               </Box>
             </Grid>
             <Grid item xs={6} align="left">
               <Box className={classes.modalButtonBox}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  onClick={() => history.push("/transaction")}
+                <Tooltip
+                  title={
+                    <Typography className={classes.tooltip}>
+                      Coming Soon
+                    </Typography>
+                  }
+                  arrow
                 >
-                  Transaction
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    // onClick={() => history.push("/transaction")}
+                  >
+                    Transaction
+                  </Button>
+                </Tooltip>
               </Box>
             </Grid>
           </Grid>
           <div className={classes.centerdiv}>
-          <Grid item xs={6} align="center">
+            <Grid item xs={6} align="center">
               <Box className={classes.modalButtonBox}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  onClick={() => history.push("/notifications")}
+                <Tooltip
+                  title={
+                    <Typography className={classes.tooltip}>
+                      Coming Soon
+                    </Typography>
+                  }
+                  arrow
                 >
-                  Notifications
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    // onClick={() => history.push("/notifications")}                  Coming Soon
+                  >
+                    Notifications
+                  </Button>
+                </Tooltip>
               </Box>
             </Grid>
-            </div>
+          </div>
         </Box>
       </Box>
     </>

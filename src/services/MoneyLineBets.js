@@ -532,8 +532,6 @@ export const orderplace = async (totalStake) => {
         .send({ from: accountsNew, gasLimit: 300000 });
 
       if (createReceipt) {
-        console.log(createReceipt,"6666");
-        //
         return createReceipt;
       } else {
         return false;

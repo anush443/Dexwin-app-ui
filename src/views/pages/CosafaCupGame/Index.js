@@ -1,20 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Paper,
   Box,
-  Typography,
-  IconButton,
-  Grid,
-  Container,
-  Button,
+  // Grid,
+  // Button,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { FiClock } from "react-icons/fi";
 import TabsComponent from "./TabsComponent";
 import { getSingleGame, getOddAPI } from "src/services/ApiCall";
-import dateFormat from "dateformat";
-import { OddsContext } from "src/context/Odds";
-import { BsRecord2 } from "react-icons/bs";
+// import { BsRecord2 } from "react-icons/bs";
 import "../../../scss/main.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -108,21 +102,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CosafaCupGame(props) {
-  const { setpopup, handleClosecosafa,liveLeaguesdata,upcommingleaguesData, scores, league, matchId, teams, type , details} = props;
+  const {
+    setpopup,
+    handleClosecosafa,
+    liveLeaguesdata,
+    upcommingleaguesData,
+    scores,
+    league,
+    matchId,
+    teams,
+    type,
+    details,
+  } = props;
   const [matchDetails, setMatchDetails] = useState([]);
   const classes = useStyles();
-  const oddsContext = useContext(OddsContext);
   const [threeWayOdds, setThreeWayOdds] = useState([]);
-  const [tabview, setTabView] = useState("LIVE");
-  const [chalja, setchalja] = useState([]);
-
-
-  console.log(matchId, "matchId CosafaCupGame");
-  
-  console.log(details, "detailscup");
-  // useEffect(() => {
-  //   setchalja(leaguesData)
-  // }, [leaguesData]);
+  // const [tabview, setTabView] = useState("LIVE");
 
   const getMatcheDetails = async () => {
     try {
@@ -150,7 +145,8 @@ export default function CosafaCupGame(props) {
 
   return (
     <Paper className={classes.PostBox}>
-      <Grid
+      {/* //Coming soon */}
+      {/* <Grid
         style={{
           display: "flex",
           justifyContent: "center",
@@ -197,10 +193,19 @@ export default function CosafaCupGame(props) {
             FUTURES{" "}
           </Button>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       <Box className={classes.paddingsection}>
-        <TabsComponent liveLeaguesdata={liveLeaguesdata} upcommingleaguesData={upcommingleaguesData} matchId={matchId} teams={teams} scores={scores} type={type} league={league} details={details} />
+        <TabsComponent
+          liveLeaguesdata={liveLeaguesdata}
+          upcommingleaguesData={upcommingleaguesData}
+          matchId={matchId}
+          teams={teams}
+          scores={scores}
+          type={type}
+          league={league}
+          details={details}
+        />
       </Box>
     </Paper>
   );

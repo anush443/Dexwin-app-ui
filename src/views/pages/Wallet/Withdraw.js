@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
   Grid,
-  Container,
   makeStyles,
   TextField,
-  Select,
-  InputAdornment,
-  MenuItem,
   Button,
 } from "@material-ui/core";
 import { withdraw1 } from "src/services/withdrawORDeposit";
@@ -16,7 +12,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import SnackbarService from "src/services/SnackbarService";
 import { getBalanceAction } from "../../../redux/actions/balanceAction";
 import { updateBalance } from "../../../services/updateBalance";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   formControl2: {
     width: "100%",
@@ -47,32 +43,26 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "2rem",
     },
   },
+  token: {
+    display: "flex",
+    float: "right",
+    alignItems: "center",
+  },
+  tokenImg: {
+    height: "17px",
+    width: "10px",
+  },
 }));
 
 const Withdraw = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [select, setSelect] = useState("Deposite");
-  const [widthdraw, setWidthdraw] = useState("");
-  const [selectedAddress, setSelectedAddress] = useState("");
-  const [metaTxEnabled, setMetaTxEnabled] = useState(true);
   const [loader, setLoader] = useState(false);
   const [snackBarContent, setSnackBarContent] = useState(false);
   const [snackBarMsg, setSnackBarMsg] = useState("");
   const [snackBarStatus, setSnackBarStatus] = useState("");
   const [withdraw, setWithdraw] = useState("");
   const balance = localStorage.getItem("userBalance");
-  const handleChange2 = (event) => {
-    setWidthdraw(event.target.value);
-  };
-  const handleChange = (event) => {
-    setSelect(event.target.value);
-  };
-
-  const [select1, setSelect1] = useState("BTC");
-  const handleChange1 = (event) => {
-    setSelect1(event.target.value);
-  };
 
   const snackBar = (msg, status) => {
     setSnackBarMsg(msg);
@@ -85,23 +75,24 @@ const Withdraw = () => {
 
   const withdrawCurrency = async (_fund) => {
     try {
-      if (balance >= _fund) {
+      if (balance >= _fund && _fund >= 1) {
         setLoader(true);
         const res = await withdraw1(_fund);
         if (res) {
           setTimeout(async () => {
             const balance = await updateBalance();
-            console.log(balance, "ressssssssssss");
             setLoader(false);
             snackBar("Withdraw " + _fund + " amount successfully.", "success");
-            // window.location.reload();
             dispatch(getBalanceAction(balance));
           }, 30000);
         } else {
           setLoader(false);
         }
       } else {
-        snackBar("Insufficient Token", "danger");
+        snackBar(
+          "Insufficient funds, withdrawl amount should be less than your balance.",
+          "danger"
+        );
       }
     } catch (err) {
       snackBar(err, "danger");
@@ -111,9 +102,6 @@ const Withdraw = () => {
 
   return (
     <>
-      {snackBarContent && (
-        <SnackbarService msg={snackBarMsg} status={snackBarStatus} />
-      )}
       <Box className="Banner">
         <Box className={classes.exchange}>
           <Grid container spacing={2}>
@@ -122,7 +110,10 @@ const Withdraw = () => {
                 <Typography variant="body2" style={{ color: "#FFFFFF" }}>
                   Withdraw
                 </Typography>
-                <Typography variant="body1" style={{ color: "#787878" }}>
+                <Typography
+                  variant="body1"
+                  style={{ color: "#787878", visibility: "hidden" }}
+                >
                   Max 000.35BTC
                 </Typography>
               </Box>
@@ -132,7 +123,7 @@ const Withdraw = () => {
                 <TextField
                   variant="outlined"
                   fullWidth
-                  placeholder="Withdrawal address"
+                  placeholder="Withdrawal amount"
                   value={withdraw}
                   onChange={(e) => {
                     setWithdraw(e.target.value);
@@ -140,9 +131,14 @@ const Withdraw = () => {
                 />
               </Box>
               <Box align="right" mt={1}>
-                <Typography variant="body1">
-                  <span style={{ color: "#7784DA" }}>Available Balance</span>:
-                  0.345 BTC
+                <Typography variant="body1" className={classes.token}>
+                  <span style={{ color: "#7784DA" }}>Available Balance</span>
+                  &nbsp; : &nbsp;
+                  <img
+                    className={classes.tokenImg}
+                    src="images/token.svg"
+                  />{" "}
+                  &nbsp;{balance}
                 </Typography>
               </Box>
             </Grid>
@@ -174,6 +170,9 @@ const Withdraw = () => {
               >
                 Withdraw
               </Button>
+            )}
+            {snackBarContent && (
+              <SnackbarService msg={snackBarMsg} status={snackBarStatus} />
             )}
           </Box>
         </Box>

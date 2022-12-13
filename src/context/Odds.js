@@ -58,8 +58,6 @@ export const OddsContext = createContext();
 
 export default function OddsProvider(props) {
   const { matchId } = props;
-  // const matchId = "326260";
-  console.log(matchId,"idmatch")
   const [periodicData, setPeriodicData] = useState([]);
   const [popularData, setPopularData] = useState([]);
   const [exoticD, setExoticD] = useState([]);
@@ -119,8 +117,6 @@ export default function OddsProvider(props) {
       odds: responseMoneyLine1Quarter,
     });
     setPeriodicData(periodicArr);
-    console.log(responseMoneyLine1Quarter,"responseMoneyLine1Quarter")
-    
 
     const responseMoneyLine2Quarter = await getMoneyLine2QuarterOddAPI(matchId);
     periodicArr.push({
@@ -484,7 +480,6 @@ export default function OddsProvider(props) {
     });
     setExoticD(exoticArr);
   };
-  console.log(periodicArr,"periodicArr")
   var data = {
     periodicOdds: periodicData,
     popularData: popularData,

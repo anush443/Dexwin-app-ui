@@ -20,16 +20,12 @@ import {
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { FaDollarSign } from "react-icons/fa";
 import { BsBellFill, BsPower } from "react-icons/bs";
-import { FiSun } from "react-icons/fi";
 import { HiMenuAlt2 } from "react-icons/hi";
-import { FaRegMoon } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { ethers } from "ethers";
 import { useMoralis } from "react-moralis";
 import web from "web3";
 import { connectWalletAddress } from "../../../services/connectWallet";
-
 import {
   NotificationContainer,
   NotificationManager,
@@ -38,24 +34,24 @@ import NavLink from "../NavLink";
 import GloballySearchArea from "src/component/GloballySearchArea";
 import UserProfileComponent from "src/component/UserProfileComponent";
 import Logo from "src/component/Logo";
-import SettingsContext, { SettingsProvider } from "src/context/SettingsContext";
+import SettingsContext from "src/context/SettingsContext";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationModal from "src/views/pages/Notification/NotificationModal";
-import AccountBalanceWalletOutlinedIcon from "@material-ui/icons/AccountBalanceWalletOutlined";
-import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MuiAlert from "@material-ui/lab/Alert";
-import App from "src/App";
 import { AuthContext } from "src/context/Auth";
 import SnackbarService from "src/services/SnackbarService";
 import Web3 from "web3";
 import { Biconomy } from "@biconomy/mexa";
-import detectEthereumProvider from "@metamask/detect-provider";
-
-import SwapModal from "src/component/SwapModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getBalanceAction } from "../../../redux/actions/balanceAction";
 import { updateBalance } from "../../../services/updateBalance";
+import {connectWalletAdd} from "../../../services/ApiCall"
+// import detectEthereumProvider from "@metamask/detect-provider";
+// import SwapModal from "src/component/SwapModal";
+// import { FaRegMoon } from "react-icons/fa";
+// import { FiSun } from "react-icons/fi";
+
 export const submitContext = createContext();
 
 function Alert(props) {
@@ -67,19 +63,6 @@ const useStyles = makeStyles((theme) => ({
   dropdownStyle: {
     borderRadius: "20px",
     top: "35px !important",
-    // minWidth: "201px !important",
-    // left: "1158px !important",
-
-    // "@media (min-width:1220px)": {
-    //   left: "1125px !important",
-    //   background:"blue"
-
-    // },
-    // "@media (min-width:1320px)": {
-    //   left: "1125px !important",
-    //   background:"red"
-
-    // },
   },
 
   drawerPaper: {
@@ -156,9 +139,7 @@ const useStyles = makeStyles((theme) => ({
     "& li": {
       listStyle: "none",
       marginLeft: "10px",
-      [theme.breakpoints.down("lg")]: {
-        // marginTop: '15px',
-      },
+      [theme.breakpoints.down("lg")]: {},
     },
     "& button": {
       height: "41px",
@@ -186,7 +167,6 @@ const useStyles = makeStyles((theme) => ({
     },
     "&  .selectbox3": {
       width: "100%",
-      // maxWidth: "151px",
       backgroundColor: "#e0e0e0",
       height: "41px",
       borderRadius: "50px",
@@ -254,7 +234,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow:
       "-10px -10px 20px rgb(255 255 255 / 26%), 10px 10px 40px rgb(0 0 0 / 60%)",
     borderRadius: "100px",
-    width: "306px",
+    width: "261px",
     height: "50px",
     color: "#FFFFFF",
     font: "normal 700 22px/33px Poppins",
@@ -281,14 +261,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header({ buttonClick }) {
   const dispatch = useDispatch();
-  const [haveMetamask, sethaveMetamask] = useState(true);
   const [accountAddress, setAccountAddress] = useState("");
   const [selectedAddress, setSelectedAddress] = useState("");
-
   const [provider, SetProvider] = useState("");
   const [isConnected, setIsConnected] = useState(false);
   const [open, setOpen] = React.useState(false);
-
   const [snackBarContent, setSnackBarContent] = useState(false);
   const [snackBarMsg, setSnackBarMsg] = useState("");
   const [snackBarStatus, setSnackBarStatus] = useState("");
@@ -301,8 +278,6 @@ export default function Header({ buttonClick }) {
     dispatch(getBalanceAction(res));
   }
   var balance = useSelector((state) => state?.getAllReducer?.balance);
-
-   console.log(balance,"balance")
   const auth = useContext(AuthContext);
   const {
     authenticate,
@@ -311,6 +286,7 @@ export default function Header({ buttonClick }) {
     user,
     account,
     logout,
+    Moralis,
   } = useMoralis();
 
   const snackBar = (msg, status) => {
@@ -649,10 +625,31 @@ export default function Header({ buttonClick }) {
   };
 
   useEffect(() => {
-    // connectWalletAddress();
     checkConnect();
     getBalance();
   }, []);
+  // const login = async (path) => {
+
+  // const connectWalletAddress = async (address) => {
+  //   const query = new Moralis.Query("User");
+  //   query.equalTo("userAddress", address[0]);
+  //   const results = await query.find({ useMasterKey: true });
+  //   if (results.length == 0) {
+  //     const UserCreate = Moralis.Object.extend("User");
+  //     const User = new UserCreate();
+  //     User.set("ethAddress", address[0]);
+  //     User.set("username", address[0]);
+  //     User.set("password", address[0]);
+  //     User.save().then(
+  //       () => {
+  //         console.log("Connect Wallet Sucessfully");
+  //       },
+  //       (error) => {
+  //         console.log(error, "error");
+  //       }
+  //     );
+  //   }
+  // };
   const login = async (path) => {
     if (window.ethereum) {
       //check if Metamask is installed
@@ -668,6 +665,7 @@ export default function Header({ buttonClick }) {
             }
           }
 
+        // connectWalletAddress(address);
         const obj = {
           connectedStatus: true,
           status: "",
@@ -715,8 +713,13 @@ export default function Header({ buttonClick }) {
 
         setChainID(chainID1);
         if (auth.isLogin()) {
-          snackBar("User Login Successful.", "success");
-          // window.location.reload();
+          console.log(address[0],"meraaaa")
+          connectWalletAdd(address[0])
+          snackBar("Wallet Connected Successfully.", "success");
+          setTimeout(() => {
+          window.location.reload();
+          }, 1000);
+
         }
         return obj;
       } catch (error) {
@@ -745,7 +748,7 @@ export default function Header({ buttonClick }) {
     await localStorage.setItem("cahinID", null);
     window.ethereum.on("disconnect", clearAccount);
 
-    snackBar("User logout Successful.", "success");
+    snackBar("Wallet Disconnected.", "success");
     setTimeout(() => {
       window.location.replace("/");
     }, 1000);
@@ -814,7 +817,7 @@ export default function Header({ buttonClick }) {
     window.addEventListener("resize", () => setResponsiveness());
   }, []);
 
-  const [select1, setSelect1] = useState("ETH");
+  const [select1, setSelect1] = useState("DWIN");
   const handleChange1 = (event) => {
     setSelect1(event.target.value);
   };
@@ -872,7 +875,16 @@ export default function Header({ buttonClick }) {
                               {productLogo}
                             </Grid>
                             <Grid item xs={10}>
-                              <GloballySearchArea type="TopHeaderSearchArea" />
+                              <Tooltip
+                                title={
+                                  <Typography className={classes.tooltip}>
+                                    Coming Soon
+                                  </Typography>
+                                }
+                                arrow
+                              >
+                                <GloballySearchArea type="TopHeaderSearchArea" />
+                              </Tooltip>
                             </Grid>
                           </Grid>
                         </Grid>
@@ -913,12 +925,14 @@ export default function Header({ buttonClick }) {
                                   }}
                                   color="primary"
                                   fullWidth
-                                  // onClick={() => history.push("/bet-builder")}
+                                  // onClick={() => history.push("/bet-builder")}  Coming Soon
                                 >
-                                  <a href="https://dexwin.bet/basketball/nba/odds" target="_blank" >
-                                  COMPARE ODDS
+                                  <a
+                                    href="https://dexwin.bet/basketball/nba/odds"
+                                    target="_blank"
+                                  >
+                                    COMPARE ODDS
                                   </a>
-                                  
                                 </Button>
                               </Box>
                             </Grid>
@@ -948,19 +962,6 @@ export default function Header({ buttonClick }) {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {/* <Grid item md={1}>
-                      <Box
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Typography variant="h7" className={houseCut}>
-                          HOUSE CUT : 3%
-                        </Typography>
-                      </Box>
-                    </Grid> */}
                     <Grid item xs={5}>
                       <Box className={menuSocial}>
                         <Grid container spacing={2} alignItems="center">
@@ -971,7 +972,6 @@ export default function Header({ buttonClick }) {
                               onClick={() => history.push("/wallet")}
                               className={classes.whiteButton}
                             >
-                              {" "}
                               DEPOSIT
                             </Button>
                           </Grid>
@@ -988,7 +988,7 @@ export default function Header({ buttonClick }) {
                                 classes: { paper: classes.dropdownStyle },
                               }}
                             >
-                              <MenuItem value={"BTC"}>
+                              <MenuItem value={"DWIN"}>
                                 <Box
                                   className="selectBox"
                                   style={{
@@ -997,7 +997,7 @@ export default function Header({ buttonClick }) {
                                   }}
                                 >
                                   <img
-                                    src="images/btc.png"
+                                    src="images/dexwinCoin.png"
                                     alt="image"
                                     style={{ width: "22px" }}
                                   />
@@ -1008,11 +1008,11 @@ export default function Header({ buttonClick }) {
                                       marginLeft: "7px",
                                     }}
                                   >
-                                    BTC
+                                    DWIN
                                   </Typography>
                                 </Box>
                               </MenuItem>
-                              <MenuItem value={"BNB"}>
+                              <MenuItem value={"DWIN"}>
                                 <Box
                                   className="selectBox"
                                   style={{
@@ -1021,7 +1021,7 @@ export default function Header({ buttonClick }) {
                                   }}
                                 >
                                   <img
-                                    src="images/bnb.png"
+                                    src="images/dexwinCoin.png"
                                     alt="image"
                                     style={{ width: "22px" }}
                                   />
@@ -1032,11 +1032,11 @@ export default function Header({ buttonClick }) {
                                       marginLeft: "7px",
                                     }}
                                   >
-                                    BTC
+                                    DWIN
                                   </Typography>
                                 </Box>
                               </MenuItem>
-                              <MenuItem value={"ETH"}>
+                              <MenuItem value={"DWIN"}>
                                 <Box
                                   className="selectBox"
                                   style={{
@@ -1045,7 +1045,7 @@ export default function Header({ buttonClick }) {
                                   }}
                                 >
                                   <img
-                                    src="images/eth.png"
+                                    src="images/dexwinCoin.png"
                                     alt="image"
                                     style={{ width: "22px" }}
                                   />
@@ -1056,7 +1056,7 @@ export default function Header({ buttonClick }) {
                                       marginLeft: "7px",
                                     }}
                                   >
-                                    BTC
+                                    DWIN
                                   </Typography>
                                 </Box>
                               </MenuItem>
@@ -1071,7 +1071,8 @@ export default function Header({ buttonClick }) {
                               className="buttontopBox"
                             >
                               <BsFillPlusCircleFill />
-                              &nbsp;&nbsp; &nbsp;&nbsp;
+                              &nbsp;&nbsp;
+                              <img src="images/token.svg" /> &nbsp;
                               {balance ? balance : "00.00"}
                             </Button>
                           </Grid>
@@ -1180,7 +1181,7 @@ export default function Header({ buttonClick }) {
                                     height: "50px",
                                   }}
                                   fullWidth
-                                  // onClick={() => history.push("/LeaderBoard")}
+                                  // onClick={() => history.push("/LeaderBoard")}  Coming Soon
                                 >
                                   LEADERBOARD
                                 </Button>
@@ -1197,12 +1198,15 @@ export default function Header({ buttonClick }) {
                                   }}
                                   color="primary"
                                   fullWidth
-                                  // onClick={() => history.push("/bet-builder")}
+                                  // onClick={() => history.push("/bet-builder")}   Coming Soon
                                 >
-                                  <a href="https://dexwin.bet/basketball/nba/odds" target="_blank">
-                                  COMPARE ODDS
-                                  
-                                  </a>                                </Button>
+                                  <a
+                                    href="https://dexwin.bet/basketball/nba/odds"
+                                    target="_blank"
+                                  >
+                                    COMPARE ODDS
+                                  </a>{" "}
+                                </Button>
                               </Box>
                             </Grid>
                             <Grid item xs={6} md={4}>
@@ -1217,7 +1221,7 @@ export default function Header({ buttonClick }) {
                                   color="primary"
                                   fullWidth
                                   onClick={() => setOpenSwap(true)}
-                                  // onClick={() => history.push("/bet-builder")}
+                                  // onClick={() => history.push("/bet-builder")}    Coming Soon
                                 >
                                   <img
                                     src="images/wallet_icon.png"
@@ -1231,19 +1235,6 @@ export default function Header({ buttonClick }) {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {/* <Grid item md={2}>
-                      <Box
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Typography variant="h6" className={houseCut}>
-                          HOUSE CUT : 3%
-                        </Typography>
-                      </Box>
-                    </Grid> */}
                     <Grid item xs={5}>
                       <Box className={menuSocial}>
                         <Grid container spacing={2} alignItems="center">
@@ -1302,7 +1293,7 @@ export default function Header({ buttonClick }) {
               <h1 className={classes.heading}>Only on Main Net</h1>
             </div>
           </div>
-          {/* <SwapModal handleCloseSwap={handleCloseSwap} /> */}
+          {/* <SwapModal handleCloseSwap={handleCloseSwap} /> // Coming Soon */}
         </Dialog>
       </>
     );
@@ -1349,7 +1340,7 @@ export default function Header({ buttonClick }) {
                         height: "50px",
                       }}
                       fullWidth
-                      // onClick={() => history.push("/LeaderBoard")}
+                      // onClick={() => history.push("/LeaderBoard")}                  Coming Soon
                     >
                       LEADERBOARD
                     </Button>
@@ -1409,7 +1400,7 @@ export default function Header({ buttonClick }) {
                             marginLeft: "7px",
                           }}
                         >
-                          BTC
+                          DWIN
                         </Typography>
                       </Box>
                     </MenuItem>
@@ -1430,7 +1421,7 @@ export default function Header({ buttonClick }) {
                             marginLeft: "7px",
                           }}
                         >
-                          BTC
+                          DWIN
                         </Typography>
                       </Box>
                     </MenuItem>
@@ -1451,7 +1442,7 @@ export default function Header({ buttonClick }) {
                             marginLeft: "7px",
                           }}
                         >
-                          BTC
+                          DWIN
                         </Typography>
                       </Box>
                     </MenuItem>
@@ -1545,13 +1536,13 @@ export default function Header({ buttonClick }) {
           {mobileView ? displayMobile() : displayDesktop()}
         </Container>
       </AppBar>
-      <Box className="themeButton">
+      {/* <Box className="themeButton">
         <IconButton
           variant="contained"
           color="primary"
           onClick={() => {
             changeTheme("LIGHT");
-          }}
+          }}                                   Coming Soon
         >
           <FiSun />
         </IconButton>
@@ -1564,7 +1555,7 @@ export default function Header({ buttonClick }) {
         >
           <FaRegMoon />
         </IconButton>
-      </Box>
+      </Box> */}
     </>
   );
 }

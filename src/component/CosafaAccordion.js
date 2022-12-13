@@ -25,6 +25,7 @@ import {
 
 import { useDispatch } from "react-redux";
 import { getBetSlip } from "../redux/actions/getAllUsersAction";
+import { setTabs } from "../../src/redux/actions/rightTabs";
 
 const useStyles = makeStyles((theme) => ({
   detailsBox: {
@@ -166,9 +167,6 @@ function CosafaAccordion(props) {
     componentsDetails,
     details
   } = props;
-  console.log(componentsDetails,"componentsDetails")
-  console.log(periodicCardData,"periodicCardData")
-
   const [expanded, setExpanded] = React.useState("panel1");
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -195,6 +193,7 @@ function CosafaAccordion(props) {
     dispatch(getBetSlip(data, sumOdds, sumTotalStake, sumTotalPayout));
   };
   const _addBetSlip = async ( odds, betType) => {
+    dispatch(setTabs("betSlip"));
     let array = getBetslipData();
     var checkLeague;
     const league = array.map((item) => item.id);
@@ -212,7 +211,6 @@ function CosafaAccordion(props) {
     });
     const x = array.map((item) => item.checkLeague);
     const y = x?.includes(true);
-    console.log(x, y, "1111111111");
     sameLeagueCheck(y);
     const totalOddsArray = array.map((item) => Number(item.odds));
     const totalStakeArray = array.map((item) => Number(item.amount));
@@ -225,10 +223,8 @@ function CosafaAccordion(props) {
       (partialSum, a) => partialSum + a,
       0
     );
-    const sumOdds = parseFloat(totalOddsArray.reduce((partialSum, a) => partialSum * a)).toFixed(1);
-    const a = Number(sumOdds)
-    console.log(array, "array");
-    console.log(details, "detailscosa");
+    const sumOdds = parseFloat(totalOddsArray.reduce((partialSum, a) => partialSum * a)).toFixed(2);
+    const a = Number(sumOdds);
     addBetslipData(array);
     if (auth.isLogin()) {
       const res = await createBetSlip(
@@ -518,7 +514,6 @@ function CosafaAccordion(props) {
                   fontSize: "15px",
                 }}
               >
-{console.log(componentsDetails,"componentsDetails")}
                 {componentsDetails?.question}
               </Typography>
             </AccordionSummary>
@@ -529,13 +524,11 @@ function CosafaAccordion(props) {
                 <Grid container spacing={2}>
                   {componentsDetails?.answer &&
                     componentsDetails?.answer?.map((data, index) => {
-                      {console.log(data,"data")}
                       return (
                         
                         <Grid item xs={6}>
                           <Box className={classes.detailsBox}>
                             <Typography variant="body2">
-                            {console.log(data,"4545data")}
                               {data?.text}
                             </Typography>
                             <Button
@@ -616,7 +609,6 @@ function CosafaAccordion(props) {
                 }}
               >
                 {periodicCardData?.question}
-                {console.log("Preiodic data",periodicCardData)}
               </Typography>
             </AccordionSummary>
             <AccordionDetails
@@ -902,7 +894,7 @@ function CosafaAccordion(props) {
                       color: "#787878",
                     }}
                   >
-                    YES
+                    ODD
                   </Typography>
                   <Typography
                     variant="h6"
@@ -911,7 +903,7 @@ function CosafaAccordion(props) {
                       color: " #787878",
                     }}
                   >
-                    NO
+                     EVEN
                   </Typography>
                 </Box>
               </Box>
@@ -1015,7 +1007,7 @@ function CosafaAccordion(props) {
                                     onClick={() =>
                                       _addBetSlip(
                                         data?.odd,
-                                        exoticCardData?.question
+                                        exoticCardData?.question +`(${data?.text})`
                                       )
                                     }
                                   >
@@ -1070,9 +1062,10 @@ function CosafaAccordion(props) {
                     style={{
                       fontSize: "15px",
                       color: "#787878",
+                      marginLeft: "37px"
                     }}
                   >
-                    YES
+                    ODD
                   </Typography>{" "}
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <Typography
@@ -1082,7 +1075,7 @@ function CosafaAccordion(props) {
                       color: " #787878",
                     }}
                   >
-                    NO
+                    EVEN
                   </Typography>
                 </Box>
               </Box>
@@ -1164,7 +1157,7 @@ function CosafaAccordion(props) {
                             color: "#787878",
                           }}
                         >
-                          YES
+                          ODD
                         </Typography>
 
                         <Typography
@@ -1175,7 +1168,7 @@ function CosafaAccordion(props) {
                             color: "#787878",
                           }}
                         >
-                          NO
+                          EVEN
                         </Typography>
                       </Box>
                     </Grid>
@@ -1194,7 +1187,7 @@ function CosafaAccordion(props) {
                             color: "#787878",
                           }}
                         >
-                          YES
+                          ODD
                         </Typography>
 
                         <Typography
@@ -1205,7 +1198,7 @@ function CosafaAccordion(props) {
                             color: "#787878",
                           }}
                         >
-                          NO
+                          EVEN
                         </Typography>
                       </Box>
                     </Grid>
@@ -1259,7 +1252,7 @@ function CosafaAccordion(props) {
                                   >
                                     {data?.num1}
                                   </Button>
-                                  <Button
+                                  <Button 
                                     variant="outlined"
                                     color="secondary"
                                     className={classes.buttonStyle}
@@ -1306,7 +1299,7 @@ function CosafaAccordion(props) {
                       </Typography>
                     </Grid>
                     <Grid item xs={5}>
-                      <Box className="d-flexspacebetween">
+                      <Box className="d-flexspacebetween" style={{marginLeft: "-40px"}}>
                         <Typography
                           variant="h6"
                           style={{
@@ -1314,17 +1307,17 @@ function CosafaAccordion(props) {
                             color: "#787878",
                           }}
                         >
-                          YES
+                          ODD
                         </Typography>
 
                         <Typography
                           variant="h6"
                           style={{
                             fontSize: "15px",
-                            marginRight: "20px",
+                            marginRight: "61px",
                           }}
                         >
-                          NO
+                          EVEN
                         </Typography>
                       </Box>
                     </Grid>
@@ -1343,7 +1336,7 @@ function CosafaAccordion(props) {
                             color: "#787878",
                           }}
                         >
-                          YES
+                          ODD
                         </Typography>
 
                         <Typography
@@ -1353,7 +1346,7 @@ function CosafaAccordion(props) {
                             marginRight: "20px",
                           }}
                         >
-                          NO
+                          EVEN  
                         </Typography>
                       </Box>
                     </Grid>

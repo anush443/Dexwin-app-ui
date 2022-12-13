@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { makeStyles, Box, Typography, Paper, Button } from "@material-ui/core";
 import { IoBasketballSharp } from "react-icons/io5";
 import { BsCheck2 } from "react-icons/bs";
@@ -7,9 +7,8 @@ import { claimBet } from "src/services/MoneyLineBets";
 import SnackbarService from "src/services/SnackbarService";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useMoralis, useNewMoralisObject } from "react-moralis";
-import { useSelector, useDispatch } from "react-redux";
-import { getSingleGame } from "src/services/ApiCall";
-import {getBalanceAction} from "../redux/actions/balanceAction";
+import {useDispatch } from "react-redux";
+import { getBalanceAction } from "../redux/actions/balanceAction";
 import { updateBalance } from "../services/updateBalance";
 
 const useStyles = makeStyles((theme) => ({
@@ -56,9 +55,11 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "7px",
   },
   footerBetWin: {
-    background: "#39AED0",
+    background:
+      "linear-gradient(99.01deg, #8DE6D1 6.49%, #71FEA3 97.08%), linear-gradient(180deg, #39AED0 0%, rgba(57, 174, 208, 0) 100%)",
     padding: "8px 12px",
     cursor: "pointer",
+    marginTop: "3rem",
     "& p.win": {
       color: "#E45A5A",
     },
@@ -71,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
     border: "unset",
     outline: "unset",
     boxShadow: "unset",
+    color: "#2D2D2D",
 
     "&:hover": {
       padding: "unset !important",
@@ -90,29 +92,36 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-88%, -39%)",
   },
   zIndex1: {
-    zIndex: "1"
-  }
+    zIndex: "1",
+  },
+  icontextGreen: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#3BBD2A",
+  },
+  icontext: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  token: {
+    width: "10px",
+    height: "17px",
+  },
 }));
 
-var array = [];
 function ActiveBetsCard(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { Moralis } = useMoralis();
-  const [status, setStatus] = useState(false);
-
   const [loader, setLoader] = useState(false);
   const [snackBarContent, setSnackBarContent] = useState(false);
   const [snackBarMsg, setSnackBarMsg] = useState("");
   const [snackBarStatus, setSnackBarStatus] = useState("");
-  const [matchDetails, setMatchDetails] = useState([]);
   const { save } = useNewMoralisObject("SettleBets");
   const { data, getActiveBets, getSettleBets } = props;
   const [gameStatus, setGameStatus] = useState("");
-  const [isgame, setIsgame] = useState(false);
-  useEffect(() => {
-    // console.log("matchD : ", getSingleMatcheDetails(data.attributes?.gameId));
-  }, []);
 
   const snackBar = (msg, status) => {
     setSnackBarMsg(msg);
@@ -141,14 +150,13 @@ function ActiveBetsCard(props) {
 
   const claim = async () => {
     setLoader(true);
-
     const res = await claimBet(
       Number(data.attributes?.totalOdds),
       data.attributes?.totalPayout
     );
 
     if (res) {
-      const balance =  await updateBalance();
+      const balance = await updateBalance();
       const _data = {
         totalOdds: data.attributes?.totalOdds,
         userAddress: localStorage.getItem("userAddress").toString(),
@@ -219,7 +227,12 @@ function ActiveBetsCard(props) {
               fullWidth
               className={`${classes.cashoutButton}`}
             >
-              (<>Cashout ${data.attributes?.totalPayout}</>)
+              (
+              <>
+                CLAIM {data.attributes?.totalPayout}
+                <img src="images/tokenBlack.svg" />{" "}
+              </>
+              )
             </Button>
           )}
         </Box>
@@ -254,22 +267,18 @@ function ActiveBetsCard(props) {
                       <Typography variant="body2">{ele?.betType}</Typography>
                     </Box>
                     <Box>
-                      <Typography variant="body1" style={{ color: "#39AED0" }}>
-                        Correct Score
-                      </Typography>
+                      {/* <Typography variant="body1" style={{ color: "#39AED0" }}>
+                        Correct Score                                                   Coming Soon !
+                      </Typography> */}   
                     </Box>
                     <Box className={`${classes.subtitle} justifyBetween`}>
                       <Typography variant="h6">
                         <BsCheck2 />
                         {ele?.odds}
                       </Typography>
-                      <Typography variant="h6" color="primary">
-                        {" "}
-                        {ele?.odds}{" "}
-                      </Typography>
                     </Box>
                     {/* <Box>
-                        <Typography variant="h6">2-3</Typography>
+                        <Typography variant="h6">2-3</Typography>                      Coming Soon !
                       </Box> */}
                   </Box>
                   <hr style={{ border: "1px solid rgba(71, 71, 71, 0.3)" }} />
@@ -290,21 +299,25 @@ function ActiveBetsCard(props) {
                   <Typography variant="body1" className="blue">
                     Total Stake
                   </Typography>
-                  <Typography variant="body1" className="icontext">
-                    {" "}
-                    $ {data.attributes?.totalStake}{" "}
+                  <Typography variant="body1" className={classes.icontext}>
+                    {data.attributes?.totalStake}&nbsp;&nbsp;
+                    <img className={classes.token} src="images/token.svg" />
                   </Typography>
                 </Box>
                 <Box className="justifyBetween">
                   <Typography variant="body1" className="blue">
                     Payout
                   </Typography>
-                  <Typography variant="body1" className="icontext green">
+                  <Typography variant="body1" className={classes.icontextGreen}>
                     {" "}
                     {gameStatus == "Loss" ? (
                       <>$ 00</>
                     ) : (
-                      <>$ {data.attributes?.totalPayout}</>
+                      <>
+                        {" "}
+                        {data.attributes?.totalPayout}&nbsp;&nbsp;
+                        <img className={classes.token} src="images/token.svg" />
+                      </>
                     )}
                   </Typography>
                 </Box>

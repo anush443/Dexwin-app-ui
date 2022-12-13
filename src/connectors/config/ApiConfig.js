@@ -1,8 +1,10 @@
 // Base URL
-let baseurl="https://app.staging.dexwin.bet/";
+let baseurl="https://staging.dexwin.bet/betapi";
 // let baseurl="http://localhost:3023";
 
 const apiConfig = {
+    // connect-wallet
+    connectWalletAdd: `${baseurl}/api/user/connect-wallet?walletAddress=`,
     // Todays
     todayGamesAPI: `${baseurl}/api/live/get-today-games`,
     todayCompleteGamesAPI: `${baseurl}/api/live/get-today-complete-games`,
@@ -94,8 +96,6 @@ const apiConfig = {
     
     // Leagues
     leaguesAPI:`${baseurl}/api/leagues`,
-    // connect wallet
-    connect_Wallet:`${baseurl}/api/user/connect-wallet?walletAddress=`
 }
 
 export default apiConfig;

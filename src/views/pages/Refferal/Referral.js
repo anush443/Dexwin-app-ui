@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import styled from "styled-components";
+import useUserApi  from '../../../hooks/useUserApi'
 import { makeStyles } from "@material-ui/core/styles";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -130,11 +131,22 @@ const Para = styled.p`
 
 export default function (props) {
   const classes = useStyles();
+  const { refData, getReferalInfo } = useUserApi()
+  const [referalData, setRefferalData] = useState()
   const [address, setAddress] = useState('');
   const [copySuccess, setCopySuccess] = useState(false);
   const [snackBarContent, setSnackBarContent] = useState(false);
   const [snackBarMsg, setSnackBarMsg] = useState("");
   const [snackBarStatus, setSnackBarStatus] = useState("");
+
+  useEffect(() => {
+    if(address) getReferalInfo(address)
+  }, [address])
+
+
+  useEffect(() => {
+    if(refData) setRefferalData({ refCount: refData.referalList, commission: refData.user[0].commission.dwin})
+  }, [refData])
 
   const snackBar = (msg, status) => {
     setSnackBarMsg(msg);
@@ -153,7 +165,6 @@ export default function (props) {
   const fetchRefAddress = async () => {
     if(window?.ethereum){
       const addressRef = await window.ethereum.enable()
-      console.log('addressRef',addressRef);
       setAddress(addressRef[0])
     }
   }
@@ -202,7 +213,7 @@ export default function (props) {
                 <Typography variant="h5">Total Referred Friends</Typography>
 
                 <Typography align="center" variant="h1">
-                  10
+                  {referalData?.refCount !== 0? referalData?.refCount: 0}
                 </Typography>
               </Box>
             </Grid>
@@ -212,9 +223,9 @@ export default function (props) {
                 <Box className={classes.BtcCard}>
                   <Flex2>
                     <Typography variant="h1" align="center">
-                      10
+                    {referalData?.commission}
                     </Typography>
-                    <Para style={{marginTop:'revert'}}>BTC</Para>
+                    <Para style={{marginTop:'revert'}}>$DWIN</Para>
                   </Flex2>
                 </Box>
               </Box>

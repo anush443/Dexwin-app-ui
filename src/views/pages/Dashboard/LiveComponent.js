@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { makeStyles,Button  } from "@material-ui/core";
+import { makeStyles, Button } from "@material-ui/core";
 import { LiveContext } from "src/context/Live";
-
 import DashboardCard from "src/component/DashboardCard";
 import SportsBasketballIcon from "@material-ui/icons/SportsBasketball";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   boxRelative: {
@@ -30,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   loadButton: {
     display: "flex",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 }));
 
 function LiveComponent() {
@@ -49,7 +48,7 @@ function LiveComponent() {
       <div className={classes.boxRelative}>
         <div className={classes.boxFixedCenter}>
           <SportsBasketballIcon className={classes.centerIcon} />
-          <div className={classes.textCenter}>Matches are not running now.</div>
+          <div className={classes.textCenter}>No live games.</div>
         </div>
       </div>
     );
@@ -58,48 +57,40 @@ function LiveComponent() {
   const [perPage] = useState(5);
   const [pageCount, setPageCount] = useState(5);
   const [data, setData] = useState([]);
-  const liveDataById =  useSelector((state) => state?.getAllReducer?.leaguesDataById?.data);
-  console.log("liveDataById", liveDataById);
+  const liveDataById = useSelector(
+    (state) => state?.getAllReducer?.leaguesDataById?.data
+  );
 
-  const pagination = () => {
-
-    const slice = liveDataById?.slice(offset, offset + perPage)
-     setData(slice);
-     console.log("liveDataById", data);
-    setPageCount(Math.ceil(liveDataById?.length / perPage))
-
-  }
-  const handlePageClick = (e) => {
-    console.log(e,"eeee")
-    const selectedPage = e.selected;
-    setOffset(selectedPage + 1);
-};
-const sliceData = () => {
-  console.log("perPage: ", perPage);
-  const slice = liveDataById?.slice(offset, offset + perPage);
-  setData(slice);
-}
-const addMore = ()=> {
-  setPageCount(pageCount + 5);
-  sliceData()
-}
+  const sliceData = () => {
+    const slice = liveDataById?.slice(offset, offset + perPage);
+    setData(slice);
+  };
+  const addMore = () => {
+    setPageCount(pageCount + 5);
+    sliceData();
+  };
   const showData = () => {
     return (
-    <>
-    <DashboardCard type="live" liveLeaguesdata={liveLeaguesdata} liveDataById={liveDataById}  pageCount={pageCount}/>
-    
-    <div className={classes.loadButton}>
+      <>
+        <DashboardCard
+          type="live"
+          liveLeaguesdata={liveLeaguesdata}
+          liveDataById={liveDataById}
+          pageCount={pageCount}
+        />
 
-    {liveDataById?.length > 5 ? 
-    <Button onClick={addMore}>Load More</Button> : null}
-    </div>
-
-    </>);
+        <div className={classes.loadButton}>
+          {liveDataById?.length > 5 ? (
+            <Button onClick={addMore}>Load More</Button>
+          ) : null}
+        </div>
+      </>
+    );
   };
-  
+
   return (
     <div className="outerContainer">
-      { liveDataById?.length !== 0 ? showData() : noDataFoundMessage()}
+      {liveDataById?.length !== 0 ? showData() : noDataFoundMessage()}
     </div>
   );
 }

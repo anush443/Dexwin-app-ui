@@ -33,7 +33,6 @@ import { getSingleGame, getOddAPI } from "src/services/ApiCall";
 import GameTwoButton from "src/views/pages/Dashboard/GameTwoButton";
 import dateFormat from "dateformat";
 
-
 const Accordion = withStyles((theme) => ({
   root: {
     boxSizing: "border-box",
@@ -111,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
     float: "left",
     background: "#191919",
     borderRadius: "30px !important",
-    height:"2rem"
+    height: "2rem",
   },
   mainBox: {
     "& h6": {
@@ -181,7 +180,6 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-
   thirdButton: {
     boxShadow:
       "0px 0px 0px rgb(255 255 255 / 37%), 10px 10px 20px rgb(0 0 0 / 49%)",
@@ -208,20 +206,71 @@ const useStyles = makeStyles((theme) => ({
   btn1: {
     borderRadius: "50px !important",
   },
+  gridClass1: {
+    fontFamily: "K2D",
+    fontStyle: "normal",
+    background: "#222222",
+    boxShadow:
+      "-1px -1px 2px rgba(255, 255, 255, 0.25), 10px 10px 20px 10px rgba(0, 0, 0, 0.25)",
+    borderRadius: "20px",
+    textAlign: "center",
+    padding: "2rem",
+    margin: "1rem 0rem",
+    height: "auto",
+  },
+  imgClass1: {
+    height: "12rem",
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    padding: "2rem",
+  },
+  imgClass2: {
+    height: "12rem",
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    padding: "2rem",
+    marginTop: "1rem",
+  },
+  btnclass1: {
+    marginTop: "7rem",
+    minWidth: "45px",
+    height: "32px",
+    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
+    borderRadius: "5px",
+    color: "#FA9131",
+    fontSize: "16px",
+    border: "0.2px solid #383838",
+    fontWeight: "600",
+  },
+  selectClass1: {
+    borderRadius: "10px",
+    backgroundColor: "#333",
+    marginTop: "6rem",
+    marginLeft: "-5rem",
+    padding: "0px 12px",
+  }
 }));
 
 var oddsdata = [];
 
 export default function Popular(props) {
-  const { type, matchId, teams, league, liveLeaguesdata, upcommingleaguesData, scores } = props;
+  const {
+    type,
+    matchId,
+    teams,
+    league,
+    liveLeaguesdata,
+    upcommingleaguesData,
+    scores,
+  } = props;
   const classes = useStyles();
   const oddsContext = useContext(OddsContext);
   const [expanded, setExpanded] = React.useState("panel1");
-  const [select1, setSelect1] = useState("Teams");
   const [checkBoxData, setCheckBoxData] = useState([]);
   const [cardData, setCardData] = useState([]);
   const [matchDetails, setMatchDetails] = useState([]);
-
 
   useEffect(() => {
     setCardData([]);
@@ -236,11 +285,8 @@ export default function Popular(props) {
 
       if (response) {
         setMatchDetails(response.data.Data);
-        // console.log("setMatchDetails", matchDetails)
-        // console.log("ID==setMatchDetails", matchDetails.id)
       } else {
         setMatchDetails([]);
-        // console.log("elsematchDetails", matchDetails)
       }
     } catch (error) {}
   };
@@ -300,383 +346,187 @@ export default function Popular(props) {
   };
   const getCheckBox = () => {};
 
-
-
-
-
-
-
-
-
-  console.log(matchId, "matchId" )
-
-
-
-  console.log(liveLeaguesdata, "liveLeaguesdata")
-  console.log(teams,"teams===pop")
-  console.log(league,"league===pop")
-  console.log(scores,"scores===pop")
-  // console.log(liveLeaguesdata.map(
-  //   (value) => {
-  //     return (value.teams.away.name)
-  //   }), "liveLeaguesdata==")
-
-
   const localLiveGrid = () => {
     // liveLeaguesdata.map(
     //   (value) => {
     return (
-    <>
-    <CosafaFilterComponent />
-    <Grid
-        xs={12}
-        style={{
-          fontFamily: "K2D",
-          fontStyle: "normal",
-          background: "#222222",
-          boxShadow:
-            "-1px -1px 2px rgba(255, 255, 255, 0.25), 10px 10px 20px 10px rgba(0, 0, 0, 0.25)",
-          borderRadius: "20px",
-          textAlign: "center",
-          padding: "2rem",
-          margin: "1rem 0rem",
-          height: "auto",
-        }}
-      >
-        <Grid xs={12} style={{ display: "flex" }}
-        >                  
-          
-          <Grid xs={3} style={{}}>
-            <Grid style={{ display: "flex" }}>
-              <img height="20px" width="20px" src={league.logo} alt="i" />{" "}&nbsp; &nbsp;
-              <div style={{ color: "#39AED0", fontSize: "12px" }} id={league.id}>
-              {league.name}
-              </div>
-            </Grid>
-
-            <div>
-              <img
-                src={teams.away.logo}
-                id={teams.away.id}
-                alt=""
-                style={{ height:"12rem", 
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  // width:"70%", 
-                  padding: "2rem" }}                
-                />
-            </div>
-            <p>
-              {" "}
-              {teams.away.name} <span style={{ color: "#39AED0" }}>
-                (3-0)
-              </span>{" "}
-            </p>
-          </Grid>
-
-          <Grid xs={6} mt={2} style={{ textAlign: "center",}}>
-            <div>LIVE SCORE</div>
-            <Grid style={{ display: "flex", justifyContent: "center" }}>
-              <div>
-                <Button
-                  style={{
-                    marginTop: "7rem",
-                    minWidth: "45px",
-                    height: "32px",
-                    // background: theme.palette.background.header,
-                    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
-                    borderRadius: "5px",
-                    color: "#FA9131",
-                    fontSize: "16px",
-                    border: "0.2px solid #383838",
-                    fontWeight: "600",
-                  }}
-                >
-                  {scores.away.total}
-                </Button>
-              </div>
-              {/* <div><function/></div> */}
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  margin: "0rem 1rem",
-                }}
-                align="right"
-              >
-                <Box alignItems="center" style={{ margin: "2rem" }}>
-                  <Typography variant="body1">{scores.away.quarter_1 == null ? "-" : scores.away.quarter_1}</Typography>&nbsp;&nbsp;&nbsp;
-                  <Typography variant="body1">{scores.away.quarter_2 == null ? "-" : scores.away.quarter_2}</Typography>&nbsp;&nbsp;&nbsp;
-                  <Typography variant="body1">{scores.away.quarter_3 == null ? "-" : scores.away.quarter_3}</Typography>&nbsp;&nbsp;&nbsp;
-                  <Typography variant="body1">{scores.away.quarter_4 == null ? "-" : scores.away.quarter_4}</Typography>
-                </Box>
-
-                <Box alignItems="center" style={{ margin: "2rem" }}>
-                  <Typography variant="body1" style={{ color: "#7784DA" }}>
-                    Q1
-                  </Typography>
-                  &nbsp;&nbsp;&nbsp;
-                  <Typography variant="body1" style={{ color: "#7784DA" }}>
-                    Q2
-                  </Typography>
-                  &nbsp;&nbsp;&nbsp;
-                  <Typography variant="body1" style={{ color: "#7784DA" }}>
-                    Q3
-                  </Typography>
-                  &nbsp;&nbsp;&nbsp;
-                  <Typography variant="body1" style={{ color: "#7784DA" }}>
-                    Q4
-                  </Typography>
-                </Box>
-
-                <Box alignItems="center" style={{ margin: "2rem" }}>
-                  <Typography variant="body1">{scores.home.quarter_1 == null ? "-" : scores.home.quarter_1}</Typography>&nbsp;&nbsp;&nbsp;
-                  <Typography variant="body1">{scores.home.quarter_2 == null ? "-" : scores.home.quarter_2}</Typography>&nbsp;&nbsp;&nbsp;
-                  <Typography variant="body1">{scores.home.quarter_3 == null ? "-" : scores.home.quarter_3}</Typography>&nbsp;&nbsp;&nbsp;
-                  <Typography variant="body1">{scores.home.quarter_4 == null ? "-" : scores.home.quarter_4}</Typography>
-                </Box>
-              </div>
-
-              <div>
-                <Button
-                  mt={5}
-                  style={{
-                    minWidth: "45px",
-                    marginTop: "7rem",
-                    height: "32px",
-                    // background: theme.palette.background.header,
-                    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
-                    borderRadius: "5px",
-                    color: "#FA9131",
-                    fontSize: "16px",
-                    border: "0.2px solid #383838",
-                    fontWeight: "600",
-                  }}
-                >
-                  {scores.home.total}
-                </Button>
-              </div>
-            </Grid>
-          </Grid>
-
-          <Grid xs={3}>
-            <Grid style={{ display: "flex", justifyContent: "right" }}>
-              <img src="images/Vector (5).png" alt="i" /> &nbsp;&nbsp;&nbsp;{" "}
-              <div style={{ color: "#39AED0", fontSize: "12px" }}>
-              {dateFormat(liveLeaguesdata.date, "dS mmmm, yyyy")}
-              </div>
-            </Grid>
-            <div>
-              <img
-                  src={teams.home.logo}
-                  id={teams.home.id}
-                  alt=" "
-                  style={{ height:"12rem", 
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  // width:"70%", 
-                  padding: "2rem",
-                  marginTop:"1rem",
-                  }}              
-                  />
-            </div>
-            <p>
-              {" "}
-              {teams.home.name} <span style={{ color: "#39AED0" }}>(3-0)</span>{" "}
-            </p>
-          </Grid>
-        </Grid>
-
-        <Grid xs={12}  style={{ display: "flex", marginTop:"3rem" }}>
-        <Grid xs={2} style={{marginTop: "8.5rem",textAlign: "right",marginRight:"1rem"}}>OT</Grid>
-            <Grid xs={2} >
-              <div style={{ marginBottom: "2rem" }}>GAME</div>
-           
-              <GameTwoButton
-                id={matchId}
-              />             
-            </Grid>
-
-          <Grid xs={4}>
-            <div style={{ marginBottom: "2rem" }}>SPREAD</div>
-
-            <Circularslider type="spread" id={matchId}/>
-          </Grid>
-
-          <Grid xs={3}>
-            <div
-              style={{
-                marginBottom: "2rem",
-                // marginLeft: "7.5rem",
-                textAlign: "center",
-              }}
-            >
-              TOTAL
-            </div>
-            <div
-              style={{ display: "flex", gap: "2", justifyContent: "center" }}
-            >
-              <Circularslider type="overUnder" id={matchId} />
-              {/* {console.log(matchDetails,"matchDetails==")} */}
-              
-            </div>
-          </Grid>
-          <Grid xs={1}>
-            <select
-                style={{
-                  borderRadius: "10px",
-                  backgroundColor: "#333",
-                  // backgroundColor: "#222222",
-                  // color: "#787878",
-                  marginTop: "6rem",
-                  marginLeft: "-5rem",
-                  padding: "0px 12px",
-                }}
-              >
-                <option value="Points">Points</option>
-                <option value="Points1">Points1</option>
-                <option value="Points2">Points2</option>
-              </select>
-          </Grid>
-      
-        </Grid>
-      </Grid>
-    </>
-      
-    );
-              // })
-  };
-
-
-
-
-  console.log(upcommingleaguesData, "upcommingleaguesData")
-
-  const localUpcommingGrid = () => {
-    return (
       <>
-      <CosafaFilterComponent />
-      <Grid
-          xs={12}
-          style={{
-            fontFamily: "K2D",
-            fontStyle: "normal",
-            background: "#222222",
-            boxShadow:
-              "-1px -1px 2px rgba(255, 255, 255, 0.25), 10px 10px 20px 10px rgba(0, 0, 0, 0.25)",
-            borderRadius: "20px",
-            textAlign: "center",
-            padding: "2rem",
-            margin: "1rem 0rem",
-            height: "auto",
-          }}
-        >
-          <Grid xs={12} style={{ display: "flex" }}
-          >
+        <CosafaFilterComponent />
+        <Grid xs={12} className={classes.gridClass1} style={{}}>
+          <Grid xs={12} style={{ display: "flex" }}>
             <Grid xs={3} style={{}}>
               <Grid style={{ display: "flex" }}>
-              <img style={{ display: "flex", height:"20px", width:"20px" }} src={league.logo} alt="i" />{" "}&nbsp; &nbsp;
-                <div style={{ color: "#39AED0", fontSize: "12px" }} id={league.id}>
-                {league.name}
+                <img height="20px" width="20px" src={league.logo} alt="i" />{" "}
+                &nbsp; &nbsp;
+                <div
+                  style={{ color: "#39AED0", fontSize: "12px" }}
+                  id={league.id}
+                >
+                  {league.name}
                 </div>
               </Grid>
-  
+
               <div>
                 <img
-                    src={teams.away.logo}
-                    id={teams.away.id}
-                                   
-                    alt=""
-                    style={{ height:"12rem", 
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    // width:"70%", 
-                    padding: "2rem" }}                   />
+                  src={teams.away.logo}
+                  id={teams.away.id}
+                  alt=""
+                  className={classes.imgClass1}
+                />
               </div>
               <p>
                 {" "}
-                {teams.away.name} <span style={{ color: "#39AED0" }}>
-                  (3-0)
-                </span>{" "}
+                {teams.away.name}{" "}
+                <span style={{ color: "#39AED0" }}>(3-0)</span>{" "}
               </p>
             </Grid>
-  
-            <Grid xs={6} style={{ textAlign: "center" }}>
-              
-              <Grid style={{ display: "flex", gap:"2rem",  justifyContent: "center", marginTop:"5rem" }}>
-              <div style={{display:"flex",gap:"0.5rem", justifyContent:"center"}}>
-                <img src="images/Right.svg" alt="tick" />
-                <img src="images/redCross.svg" alt="tick" />
-                <img src="images/Minus.svg" alt="tick" />
-                <img src="images/Right.svg" alt="tick" />
-                <img src="images/Right.svg" alt="tick" />
-              </div>
-              <div>LAST FIVE GAMES</div>
-              <div style={{display:"flex",gap:"0.5rem", justifyContent:"center"}}>
-              <img src="images/Right.svg" alt="tick" />
-                <img src="images/redCross.svg" alt="tick" />
-                <img src="images/Minus.svg" alt="tick" />
-                <img src="images/Right.svg" alt="tick" />
-                <img src="images/Right.svg" alt="tick" />
-              </div>
 
-                
+            <Grid xs={6} mt={2} style={{ textAlign: "center" }}>
+              <div>LIVE SCORE</div>
+              <Grid style={{ display: "flex", justifyContent: "center" }}>
+                <div>
+                  <Button className={classes.btnclass1}>
+                    {scores.away.total}
+                  </Button>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    margin: "0rem 1rem",
+                  }}
+                  align="right"
+                >
+                  <Box alignItems="center" style={{ margin: "2rem" }}>
+                    <Typography variant="body1">
+                      {scores.away.quarter_1 == null
+                        ? "-"
+                        : scores.away.quarter_1}
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography variant="body1">
+                      {scores.away.quarter_2 == null
+                        ? "-"
+                        : scores.away.quarter_2}
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography variant="body1">
+                      {scores.away.quarter_3 == null
+                        ? "-"
+                        : scores.away.quarter_3}
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography variant="body1">
+                      {scores.away.quarter_4 == null
+                        ? "-"
+                        : scores.away.quarter_4}
+                    </Typography>
+                  </Box>
+
+                  <Box alignItems="center" style={{ margin: "2rem" }}>
+                    <Typography variant="body1" style={{ color: "#7784DA" }}>
+                      Q1
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography variant="body1" style={{ color: "#7784DA" }}>
+                      Q2
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography variant="body1" style={{ color: "#7784DA" }}>
+                      Q3
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography variant="body1" style={{ color: "#7784DA" }}>
+                      Q4
+                    </Typography>
+                  </Box>
+
+                  <Box alignItems="center" style={{ margin: "2rem" }}>
+                    <Typography variant="body1">
+                      {scores.home.quarter_1 == null
+                        ? "-"
+                        : scores.home.quarter_1}
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography variant="body1">
+                      {scores.home.quarter_2 == null
+                        ? "-"
+                        : scores.home.quarter_2}
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography variant="body1">
+                      {scores.home.quarter_3 == null
+                        ? "-"
+                        : scores.home.quarter_3}
+                    </Typography>
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography variant="body1">
+                      {scores.home.quarter_4 == null
+                        ? "-"
+                        : scores.home.quarter_4}
+                    </Typography>
+                  </Box>
+                </div>
+
+                <div>
+                  <Button mt={5} className={classes.btnclass1}>
+                    {scores.home.total}
+                  </Button>
+                </div>
               </Grid>
             </Grid>
-  
+
             <Grid xs={3}>
               <Grid style={{ display: "flex", justifyContent: "right" }}>
-              <img src="images/Vector (5).png" alt="i" /> &nbsp;&nbsp;&nbsp;{" "}
+                <img src="images/Vector (5).png" alt="i" /> &nbsp;&nbsp;&nbsp;{" "}
                 <div style={{ color: "#39AED0", fontSize: "12px" }}>
-                {dateFormat(upcommingleaguesData?.date, "dS mmmm, yyyy")}
+                  {dateFormat(liveLeaguesdata.date, "dS mmmm, yyyy")}
                 </div>
               </Grid>
               <div>
                 <img
                   src={teams.home.logo}
                   id={teams.home.id}
- 
                   alt=" "
-                  style={{ height:"12rem", 
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  // width:"70%", 
-                  padding: "2rem" }}                   />
+                  className={classes.imgClass2}
+      
+                />
               </div>
               <p>
                 {" "}
-                {teams.home.name} <span style={{ color: "#39AED0" }}>(3-0)</span>{" "}
+                {teams.home.name}{" "}
+                <span style={{ color: "#39AED0" }}>(3-0)</span>{" "}
               </p>
             </Grid>
           </Grid>
-  
-          <Grid xs={12}  style={{ display: "flex", marginTop:"3rem" }}>
-            <Grid xs={2} style={{marginTop: "8.5rem",textAlign: "right",marginRight:"1rem"}}>OT</Grid>
-            <Grid xs={2} >
-              <div style={{ marginBottom: "2rem" }}>GAME</div>
-           
-              <GameTwoButton
-                id={matchId}
-              />
-             
+
+          <Grid xs={12} style={{ display: "flex", marginTop: "3rem" }}>
+            <Grid
+              xs={2}
+              style={{
+                marginTop: "8.5rem",
+                textAlign: "right",
+                marginRight: "1rem",
+              }}
+            >
+              OT
             </Grid>
-  
+            <Grid xs={2}>
+              <div style={{ marginBottom: "2rem" }}>GAME</div>
+
+              <GameTwoButton id={matchId} gameData={teams} />
+            </Grid>
+
             <Grid xs={4}>
               <div style={{ marginBottom: "2rem" }}>SPREAD</div>
-  
+
               <Circularslider type="spread" id={matchId} />
             </Grid>
-  
+
             <Grid xs={3}>
               <div
                 style={{
                   marginBottom: "2rem",
-                  // marginLeft: "7.5rem",
                   textAlign: "center",
                 }}
               >
@@ -686,41 +536,200 @@ export default function Popular(props) {
                 style={{ display: "flex", gap: "2", justifyContent: "center" }}
               >
                 <Circularslider type="overUnder" id={matchId} />
-                
               </div>
             </Grid>
             <Grid xs={1}>
               <select
-                  style={{
-                    borderRadius: "10px",
-                    backgroundColor: "#333",
-                    // backgroundColor: "#222222",
-                    // color: "#787878",
-                    marginTop: "6rem",
-                    marginLeft: "-5rem",
-                    padding: "0px 12px",
-                  }}
-                >
-                  <option value="Points">Points</option>
-                  <option value="Points1">Points1</option>
-                  <option value="Points2">Points2</option>
-                </select>
+              className={classes.selectClass1}
+            
+              >
+                <option value="Points">Points</option>
+                <option value="Points1">Coming Soon</option>
+              </select>
             </Grid>
-        
           </Grid>
         </Grid>
       </>
-        
-      );
+    );
+  };
+
+  const localUpcommingGrid = () => {
+    return (
+      <>
+        <CosafaFilterComponent />
+        <Grid
+          xs={12}
+          className={classes.gridClass1}
+      
+        >
+          <Grid xs={12} style={{ display: "flex" }}>
+            <Grid xs={3} style={{}}>
+              <Grid style={{ display: "flex" }}>
+                <img
+                  style={{ display: "flex", height: "20px", width: "20px" }}
+                  src={league.logo}
+                  alt="i"
+                />{" "}
+                &nbsp; &nbsp;
+                <div
+                  style={{ color: "#39AED0", fontSize: "12px" }}
+                  id={league.id}
+                >
+                  {league.name}
+                </div>
+              </Grid>
+
+              <div>
+                <img
+                  src={teams.away.logo}
+                  id={teams.away.id}
+                  alt=""
+                  style={{
+                    height: "12rem",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    padding: "2rem",
+                  }}
+                />
+              </div>
+              <p>
+                {" "}
+                {teams.away.name}{" "}
+                <span style={{ color: "#39AED0" }}>(3-0)</span>{" "}
+              </p>
+            </Grid>
+
+            <Grid xs={6} style={{ textAlign: "center" }}>
+              <Grid
+                style={{
+                  display: "flex",
+                  gap: "2rem",
+                  justifyContent: "center",
+                  marginTop: "5rem",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    justifyContent: "center",
+                  }}
+                >
+                  <img src="images/Right.svg" alt="tick" />
+                  <img src="images/redCross.svg" alt="tick" />
+                  <img src="images/Minus.svg" alt="tick" />
+                  <img src="images/Right.svg" alt="tick" />
+                  <img src="images/Right.svg" alt="tick" />
+                </div>
+                <div>LAST FIVE GAMES</div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    justifyContent: "center",
+                  }}
+                >
+                  <img src="images/Right.svg" alt="tick" />
+                  <img src="images/redCross.svg" alt="tick" />
+                  <img src="images/Minus.svg" alt="tick" />
+                  <img src="images/Right.svg" alt="tick" />
+                  <img src="images/Right.svg" alt="tick" />
+                </div>
+              </Grid>
+            </Grid>
+
+            <Grid xs={3}>
+              <Grid style={{ display: "flex", justifyContent: "right" }}>
+                <img src="images/Vector (5).png" alt="i" /> &nbsp;&nbsp;&nbsp;{" "}
+                <div style={{ color: "#39AED0", fontSize: "12px" }}>
+                  {dateFormat(upcommingleaguesData?.date, "dS mmmm, yyyy")}
+                </div>
+              </Grid>
+              <div>
+                <img
+                  src={teams.home.logo}
+                  id={teams.home.id}
+                  alt=" "
+                  style={{
+                    height: "12rem",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    padding: "2rem",
+                  }}
+                />
+              </div>
+              <p>
+                {" "}
+                {teams.home.name}{" "}
+                <span style={{ color: "#39AED0" }}>(3-0)</span>{" "}
+              </p>
+            </Grid>
+          </Grid>
+
+          <Grid xs={12} style={{ display: "flex", marginTop: "3rem" }}>
+            <Grid
+              xs={2}
+              style={{
+                marginTop: "8.5rem",
+                textAlign: "right",
+                marginRight: "1rem",
+              }}
+            >
+              OT
+            </Grid>
+            <Grid xs={2}>
+              <div style={{ marginBottom: "2rem" }}>GAME</div>
+
+              <GameTwoButton id={matchId} />
+            </Grid>
+
+            <Grid xs={4}>
+              <div style={{ marginBottom: "2rem" }}>SPREAD</div>
+              <Circularslider type="spread" id={matchId} />
+            </Grid>
+            <Grid xs={3}>
+              <div
+                style={{
+                  marginBottom: "2rem",
+                  textAlign: "center",
+                }}
+              >
+                TOTAL
+              </div>
+              <div
+                style={{ display: "flex", gap: "2", justifyContent: "center" }}
+              >
+                <Circularslider type="overUnder" id={matchId} />
+              </div>
+            </Grid>
+            <Grid xs={1}>
+              <select
+                style={{
+                  borderRadius: "10px",
+                  backgroundColor: "#333",
+                  marginTop: "6rem",
+                  marginLeft: "-5rem",
+                  padding: "0px 12px",
+                }}
+              >
+                <option value="Points">Points</option>
+                <option value="Points1">Points1</option>
+                <option value="Points2">Points2</option>
+              </select>
+            </Grid>
+          </Grid>
+        </Grid>
+      </>
+    );
   };
 
   const getDashboardCard = () => {
     return (
       <>
-
-        {type == "live" ?  localLiveGrid(): ""}
-        {type == "upcoming" ?  localUpcommingGrid(): ""}
-
+        {type == "live" ? localLiveGrid() : ""}
+        {type == "upcoming" ? localUpcommingGrid() : ""}
 
         {/* {type == "live" &&
           // <DashboardCard
@@ -738,7 +747,6 @@ export default function Popular(props) {
           />
         )} 
         localUpcommingGrid()} */}
-        
       </>
     );
   };
@@ -748,45 +756,42 @@ export default function Popular(props) {
       <>
         <div className={classes.mainBox}>
           <Box my={2}>
-            <Grid xs={12} style={{display:"flex"}}>
-            
-            <Grid xs={6}>
-            <Button
-              className={classes.teamDropdown}
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              onClick={handleClick}
-            >
-              &nbsp;&nbsp;&nbsp;<span className="teamDropdown">Team</span>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <span>
-                <img src="/images/Vector (4).svg" />
-              </span>
-              &nbsp;&nbsp;&nbsp;
-            </Button>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-              PaperProps={{style: {width: '125px'}}}
+            <Grid xs={12} style={{ display: "flex" }}>
+              <Grid xs={6}>
+                <Button
+                  className={classes.teamDropdown}
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
+                  &nbsp;&nbsp;&nbsp;<span className="teamDropdown">Team</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span>
+                    <img src="/images/Vector (4).svg" />
+                  </span>
+                  &nbsp;&nbsp;&nbsp;
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                  PaperProps={{ style: { width: "125px" } }}
+                >
+                  <MenuItem onClick={handleClose}>Team</MenuItem>
+                  <MenuItem onClick={handleClose}>Team</MenuItem>
+                  <MenuItem onClick={handleClose}>Team</MenuItem>
+                </Menu>
+              </Grid>
 
-            >
-              <MenuItem onClick={handleClose}>Team</MenuItem>
-              <MenuItem onClick={handleClose}>Team</MenuItem>
-              <MenuItem onClick={handleClose}>Team</MenuItem>
-            </Menu>
-            </Grid>
-
-            <Grid xs={6}>
-            <CosafaFilterComponent
-              type="popular"
-              getCheckBox={getCheckBox}
-              setCheckBoxData={setCheckBoxData}
-            />
-            </Grid>
-            
+              <Grid xs={6}>
+                <CosafaFilterComponent
+                  type="popular"
+                  getCheckBox={getCheckBox}
+                  setCheckBoxData={setCheckBoxData}
+                />
+              </Grid>
             </Grid>
           </Box>
 
@@ -963,7 +968,6 @@ export default function Popular(props) {
                               style={{
                                 marginRight: "30%",
                                 textAlign: "center",
-                                
                               }}
                             >
                               OT

@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  makeStyles,
-  Button,
-  Box,
-  Grid,
-  Paper,
-  IconButton,
-} from "@material-ui/core";
+import { makeStyles, Button, Box, Grid, IconButton } from "@material-ui/core";
 import ActiveBetsCard from "src/component/ActiveBetsCard";
 import SettleBetsCard from "src/component/SettleBetsCard";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
 import { useMoralisQuery, useMoralis } from "react-moralis";
-// import { DataList } from "src/Constant/Index";
-
-const DataList = [];
 
 const useStyles = makeStyles((theme) => ({
   boxRelative: {
@@ -44,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "15px",
   },
   dailogHeader: {
-    // width: "100%",
     padding: "15px",
     "& .mainContent": {
       "& button": {
@@ -61,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
   },
   sideDialogHeader: {
     padding: "20px 10px",
-    // background:theme.palette.background.heading,
     "& .mainContent": {
       display: "flex",
       alignItems: "center",
@@ -113,7 +101,6 @@ export default function (props) {
     );
     const results = await query.find();
     setActiveBets(results);
-    console.log(results,"result")
   };
 
   const getSettleBets = async () => {
@@ -127,7 +114,6 @@ export default function (props) {
     const results = await query.find();
     setSettleBets(results);
   };
-
   return (
     <>
       <Box
@@ -141,7 +127,7 @@ export default function (props) {
           <Button
             variant="contained"
             size="large"
-            color="primary" 
+            color="primary"
             className={tabview === "activeBets" ? "active" : ""}
             onClick={() => setTabView("activeBets")}
           >
@@ -158,22 +144,9 @@ export default function (props) {
           </Button>
         </Box>
 
-
-
-        
-        <Box mt={3}>
-          {tabview == "activeBets" ? (
-            <Grid></Grid>
-          ):(
-            ""
-          )}
-        </Box>
-
-
-
+        <Box mt={3}>{tabview == "activeBets" ? <Grid></Grid> : ""}</Box>
 
         <Box mt={3}>
-
           {tabview === "activeBets" ? (
             <Grid container spacing={2}>
               {activeBets.length > 0 ? (
@@ -217,8 +190,6 @@ export default function (props) {
           ) : (
             " "
           )}
-
-
           {tabview === "settleBets" ? (
             <Grid container spacing={2}>
               {settleBets.length > 0 ? (

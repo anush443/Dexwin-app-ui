@@ -4,7 +4,7 @@ import _ from "lodash";
 const defaultSettings = {
   direction: "ltr",
   responsiveFontSizes: true,
-  theme: "DARK",
+  theme: "dark",
 };
 
 export const restoreSettings = () => {

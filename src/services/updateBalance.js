@@ -232,7 +232,7 @@ const contractabi = [
 ];
 const contract = new Web3Client.eth.Contract(contractabi, contractaddress);
 export const updateBalance = async () => {
-  const walletAddress = localStorage?.getItem("userAddress")? localStorage.getItem("userAddress").toString(): '';
+  const walletAddress = localStorage.getItem("userAddress").toString();
   console.log(walletAddress, "uBalanceWalletAddress");
   const result = await contract.methods.balance(walletAddress).call();
   console.log(result.toString(), "uBalanceResult");

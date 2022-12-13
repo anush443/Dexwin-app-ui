@@ -14,18 +14,16 @@ import {
   Button,
   IconButton,
 } from "@material-ui/core";
-import { BiCopy } from "react-icons/bi";
 import { MdOutlineContentCopy, MdCheck } from "react-icons/md";
-import FormControl from "@material-ui/core/FormControl";
 import Deposit from "./Deposit";
-import SwapModal from "src/component/SwapModal";
-import DepositFromExchange from "./DepositFromExchange";
 import Withdraw from "./Withdraw";
-import WithdrawFromExchange from "./WithdrawFromExchange";
 import ProfileCard from "src/component/ProfileCard";
-import { FiEdit2 } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import SnackbarService from "src/services/SnackbarService";
+// Coming Soon  
+// import SwapModal from "src/component/SwapModal";
+// import DepositFromExchange from "./DepositFromExchange";
+// import WithdrawFromExchange from "./WithdrawFromExchange";
 const useStyles = makeStyles((theme) => ({
   centering: {
     "& .profileBoxImg": {
@@ -79,10 +77,6 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.down("md")]: {
         width: "100%",
       },
-
-      "& .MuiInput-root": {
-        border: "1px solid rgb(51, 153, 170)",
-      },
     },
     "& .withdrawBox": {
       borderRadius: "50px",
@@ -114,6 +108,19 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "18px",
     color: "#FFFFFF",
   },
+  midDisclamer: {
+    margin: "14px auto",
+  },
+  textDisclamer: {
+    color: "#787878",
+    padding: "1rem 4rem",
+    justifyContent: "center",
+    fontFamily: "K2D",
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: "12px",
+    color: "#8D8D8D",
+  }
 }));
 
 const Index = () => {
@@ -239,7 +246,7 @@ const Index = () => {
                         setcheckWithdraw(false);
                         setcheckDeposit(true);
                       }}
-                      
+                  
                       value={tabViews}
                     >
                       <MenuItem
@@ -248,23 +255,23 @@ const Index = () => {
                           setcheckWithdraw(false);
                           setcheckDeposit(true);
                         }}
-                        className={tabViews === "deposit" ? "active" : ""}
+                        className={tabViews === "deposit" ? "active" : "nonactive"}
                       >
                         {" "}
                         Deposit
                       </MenuItem>
-                      <MenuItem
+                      {/* <MenuItem
                         value="deposit-from-exchange"
                         onClick={() => {
                           setcheckWithdraw(false);
-                          setcheckDeposit(true);
+                          setcheckDeposit(true);                        Coming Soon
                         }}
                         className={
-                          tabViews === "deposit-from-exchange" ? "active" : ""
+                          tabViews === "deposit-from-exchange" ? "active" : "nonactive"
                         }
                       >
-                        Deposit from Exchange
-                      </MenuItem>
+                        Deposit to Exchange
+                      </MenuItem> */}
                     </Select>
                   </Box>
                 </Grid>
@@ -286,22 +293,22 @@ const Index = () => {
                           setcheckWithdraw(true);
                           setcheckDeposit(false);
                         }}
-                        className={tabViews1 === "withdraw" ? "active" : ""}
+                        className={tabViews1 === "withdraw" ? "active" : "nonactive"}
                       >
                         Withdraw
                       </MenuItem>
-                      <MenuItem
+                      {/* <MenuItem
                         value="withdraw-from-exchange"
                         onClick={() => {
                           setcheckWithdraw(true);
                           setcheckDeposit(false);
                         }}
-                        className={
-                          tabViews1 === "withdraw-from-exchange" ? "active" : ""
+                        className={                                Coming Soon
+                          tabViews1 === "withdraw-from-exchange" ? "active" : "nonactive"
                         }
                       >
-                        Withdraw from Exchange
-                      </MenuItem>
+                        Withdraw to Exchange
+                      </MenuItem> */}
                     </Select>
                   </Box>
                 </Grid>
@@ -314,33 +321,22 @@ const Index = () => {
                 }}
               >
                 {tabViews === "deposit" && checkDeposit && <Deposit />}
-                {tabViews === "deposit-from-exchange" && checkDeposit && (
-                  <DepositFromExchange />
-                )}
+                {/* {tabViews === "deposit-from-exchange" && checkDeposit && (
+                  <DepositFromExchange />                     Coming Soon
+                )} */}
                 {tabViews1 === "withdraw" && checkWithdraw && <Withdraw />}
-                {tabViews1 === "withdraw-from-exchange" && checkWithdraw && (
-                  <WithdrawFromExchange />
-                )}
+                {/* {tabViews1 === "withdraw-from-exchange" && checkWithdraw && (
+                  <WithdrawFromExchange />                     Coming Soon
+                )} */}
               </Box>
             </Grid>
 
-            <Box xs={12} align="center" mt={3}>
+            <Box xs={12} align="center" mt={3} className= {classes.midDisclamer}>
               <Typography
-                variant="body1"
-                style={{
-                  color: "#787878",
-                  padding: "1rem 4rem",
-                  justifyContent: "center",
-                  fontFamily: "K2D",
-                  fontStyle: "normal",
-                  fontWeight: "400",
-                  fontSize: "12px",
-                  color: "#8D8D8D",
-                }}
+                variant="body1" className= {classes.textDisclamer}
+             
               >
-                Disclaimer: Please ensure the Chain is set to Polygon Mainnet
-                before sending tokens from the exchange. Any tokens lost or sent
-                to the wrong address are unrecoverable.
+                Disclaimer: Please ensure that the Chain is set to Polygon Mumbai Testnet 
               </Typography>
             </Box>
           </Grid>
@@ -356,7 +352,7 @@ const Index = () => {
                 <h1 className={classes.heading}>Only on Main Net</h1>
               </div>
             </div>
-            {/* <SwapModal handleCloseSwap={handleCloseSwap} /> */}
+            {/* <SwapModal handleCloseSwap={handleCloseSwap} />                   Coming Soon */}
           </Dialog>
         </Paper>
       </Box>

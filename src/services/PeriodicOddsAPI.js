@@ -9,7 +9,6 @@ export const getMoneyLine1QuarterOddAPI = async (gameid) => {
       params: { gameid: gameid, bookmakerid: 2},
       url: apiConfig["moneyLine1QuarterOddAPI"],
     });
-    console.log(res.data.data[0].bookmakers[0],"////////////////////")
     if (res.data.status == "success") {
       return res.data.data[0].bookmakers[0];
     } else {

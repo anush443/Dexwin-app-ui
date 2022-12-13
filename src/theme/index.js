@@ -84,14 +84,8 @@ const baseOptions = {
         padding: "0px !important",
         borderRadius: "10px",
       },
-      // paperFullWidth: {
-      //   height: "calc(100% - 250px)"
-      // },
-      paperWidthXs: {
+       paperWidthXs: {
         maxWidth: "653px",
-        // background:
-        //   "linear-gradient(189.12deg, #222326 1.11%, #2B2D33 37.04%, #363637 60.99%, #252628 76.03%)",
-        // boxShadow: "0px 0px 20px rgb(0 0 0 / 50%)",
         borderRadius: "30px",
         borderRadius: "10px",
         position: "absolute",
@@ -102,7 +96,6 @@ const baseOptions = {
     MuiSelect: {
       icon: {
         top: "calc(50% - 12px)",
-        // color: theme.palette.text.white,
         right: "0",
         position: "absolute",
         pointerEvents: "none",
@@ -241,8 +234,6 @@ const baseOptions = {
       edgeEnd: { marginRight: "0px" },
       root: {
         flex: "0 0 auto",
-        // color: "#fff",
-        // color: theme.palette.text.primary,
         padding: "8px",
         overflow: "visible",
         fontSize: "1.5rem",
@@ -285,11 +276,6 @@ const baseOptions = {
         minWidth: 32,
       },
     },
-    MuiListItem: {
-      root: {
-        display: "inline-flex"
-      },
-    },
     MuiChip: {
       root: {
         backgroundColor: "rgba(0,0,0,0.075)",
@@ -300,278 +286,283 @@ const baseOptions = {
 };
 
 const themesOptions = [
-  {
-    name: "LIGHT",
-    overrides: {
-      MuiSelect: {
-        icon: {
-          top: "calc(50% - 12px)",
-          color: "#A2B1CA",
-          right: "0",
-          position: "absolute",
-          pointerEvents: "none",
-          marginRight: "10px",
-        },
-      },
-      MuiAvatar: {
-        colorDefault: {
-          borderRadius: 25,
-          background:
-            "radial-gradient(64.29% 64.29% at 30% 25.71%, #fffbfb 0%, #d7d3d3 100%)",
-          border: "2px solid #dfdfe1",
-          transition: "all .25s ease",
-          color: "#A2B1CA",
-          fontSize: 12,
-          textShadow: "0px 0px 2px rgba(0,0,0, 1)",
-          boxShadow:
-            "-1px -1px 15px 0px rgb(0 0 0 / 30%), -7px -7px 15px 0px rgb(255 255 255), inset 0px 0px 0px 0px rgb(0 0 0 / 0%), inset 0px 0px 0px 0px rgb(255 255 255 / 0%)",
-        },
-      },
-      MuiPaper: {
-        root: {
-          backgroundColor: "#e6e5e8",
-        },
-        elevation2: {
-          boxShadow: "18px 5px 20px rgb(77 73 73 / 40%), 8px 10px 20px rgb(0 0 0 / 25%)",
-          borderRadius: 10,
-          overflow: "hidden",
-          backgroundColor: "#F5F5F5",
-        },
-      },
-      MuiFormLabel: { root: { color: "#000" } },
-      MuiFilledInput: {
-        underline: {
-          "&::before": {
-            left: "0",
-            right: "0",
-            bottom: "0",
-            content: '"\\00a0"',
-            position: "absolute",
-            transition:
-              "border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-            borderBottom: "none !important",
-            pointerEvents: "none",
-          },
-        },
-        root: { backgroundColor: " #e5e5e5", color: "#000" },
-        inputAdornedStart: { height: "15px !important" },
-      },
-      MuiTypography: {
-        colorPrimary: { color: "#4E525A" },
-      },
-      MuiOutlinedInput: {
-        inputMultiline: {
-          padding: "1px !important",
-        },
-        root: {
-          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            boxShadow:
-              "0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #FFFFFF",
-          },
-        },
-        notchedOutline: {
-          boxShadow:
-            "inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem #FFFFFF",
-        },
-        input: {
-          height: "40px",
-          borderRadius: "10px",
-          padding: "0px 0px !important",
-          "&:-webkit-autofill": {
-            "-webkit-background-clip": "text !important",
-            // transitionDelay: "9999s",
-            "caret-color": "transparent",
-            "-webkit-box-shadow": "0 0 0 100px transparent inset",
-            "-webkit-text-fill-color": "#000",
-          },
-          "&:-internal-autofill-selected": {
-            color: "#fff",
-          },
-        },
-      },
-      MuiButton: {
-        containedPrimary: {
-          backgroundColor: "#EAE9F0",
-          boxShadow: "-6px -5px 14px #ffffff, 10px 10px 20px #d2d1db",
-          borderRadius: "100px",
-          height: "40px",
-          fontWeight: " 800",
-          fontSize: "13px",
-          "&:hover": {
-            boxShadow: "none !important",
-            backgroundColor: "#EAE9F0",
-          },
-        },
-      },
-      MuiInput: {
-        root: {
-          borderRadius: "50px",
-          boxShadow:
-            "inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem #FFFFFF",
-          "&.Mui-focused": {
-            boxShadow:
-              "0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #FFFFFF",
-          },
-        },
-      },
-      MuiInputBase: {
-        root: {
-          backgroundColor: " #f4f2f2",
-          color: "#000",
-          padding: "5px 12px",
-        },
-        input: {
-          fontSize: "13px !important",
-          fontWeight: "400",
-          "&::placeholder": {
-            opacity: 1,
-            color: "#a1a1a1",
-          },
-        },
-      },
-      MuiButton: {
-        contained: {
-          borderRadius: "100px",
-          color: "#fff",
-        },
-        containedSizeLarge: {
-          height: "50px",
-          minWidth: "150px",
-          fontSize: "14px",
-        },
-        containedPrimary: {
-          backgroundColor: "#F5F5F5",
-          boxShadow: "-10px -10px 10px #ffffff, 10px 10px 20px #d2d1db",
-          borderRadius: "100px",
-          height: "40px",
-          color: "#4E525A",
-          fontWeight: " 800",
-          fontSize: "13px",
-          "&:hover": {
-            // boxShadow: "8px 8px 20px #a9a8b7, -8px -8px 20px #fff, inset -8px -8px 20px #fff, inset 8px 8px 20px #a9a8b7",
-            backgroundColor: "#EAE9F0",
-          },
-        },
-        containedSecondary: {
-          backgroundColor: "#F5F5F5",
-          boxShadow:
-            "0px -3px 10px rgb(255 255 255 / 5%), 10px 10px 20px rgb(0 0 0 / 58%)",
-          borderRadius: "100px",
-          height: "40px",
-          color: "#4E525A",
-          fontWeight: " 800",
-          fontSize: "13px",
-          "&:hover": {
-            boxShadow:
-              "8px 8px 20px #a9a8b7, -8px -8px 20px #fff, inset -8px -8px 20px #fff, inset 8px 8px 20px #a9a8b7",
-            backgroundColor: "#EAE9F0",
-          },
-        },
-        outlinedPrimary: {
-          background:
-            "linear-gradient(115.29deg, #F54F4F 15.07%, rgba(182, 17, 107, 0.91) 104.4%)",
-          boxShadow:
-            "0px 0px 0px rgb(255 255 255 / 37%), 10px 10px 20px rgb(0 0 0 / 49%)",
-          borderRadius: "22px",
-          fontWeight: "bold",
-          color: "#FFFFFF",
-          fontSize: "18px",
-          width: "100%",
-        },
-        outlinedSecondary: {
-          background:
-            "linear-gradient(115.29deg, rgba(182, 17, 107, 0.91) 15.07%, rgba(96, 44, 181, 0.57) 104.4%)",
-          boxShadow:
-            "0px 0px 0px rgb(255 255 255 / 37%), 10px 10px 20px rgb(0 0 0 / 49%)",
-          borderRadius: "22px",
-          fontSize: "18px",
-          border: "none !important",
-          color: "#FFFFFF",
-          fontWeight: "bold",
-          width: "100%",
-        },
-      },
-    },
-    typography: {
-      fontFamily: "'K2D', sans-serif",
-    },
-    palette: {
-      type: "light",
-      action: {
-        active: colors.blueGrey[600],
-      },
-      background: {
-        circletableBox: "#fff",
-        tablebody: "#C4C1CE",
-        selectBox: "#EAE9F0",
-        searchBox: "#EAE9F0",
+  // {
+  //   name: "LIGHT",
+  //   overrides: {
+  //     MuiSelect: {
+  //       icon: {
+  //         top: "calc(50% - 12px)",
+  //         color: "#A2B1CA",
+  //         right: "0",
+  //         position: "absolute",
+  //         pointerEvents: "none",
+  //         marginRight: "10px",
+  //       },
+  //     },
+  //     MuiAvatar: {
+  //       colorDefault: {
+  //         borderRadius: 25,
+  //         background:
+  //           "radial-gradient(64.29% 64.29% at 30% 25.71%, #fffbfb 0%, #d7d3d3 100%)",
+  //         border: "2px solid #dfdfe1",
+  //         transition: "all .25s ease",
+  //         color: "#A2B1CA",
+  //         fontSize: 12,
+  //         textShadow: "0px 0px 2px rgba(0,0,0, 1)",
+  //         boxShadow:
+  //           "-1px -1px 15px 0px rgb(0 0 0 / 30%), -7px -7px 15px 0px rgb(255 255 255), inset 0px 0px 0px 0px rgb(0 0 0 / 0%), inset 0px 0px 0px 0px rgb(255 255 255 / 0%)",
+  //       },
+  //     },
+  //     MuiPaper: {
+  //       root: {
+  //         backgroundColor: "#e6e5e8",
+  //       },
+  //       elevation2: {
+  //         boxShadow: "18px 5px 20px rgb(77 73 73 / 40%), 8px 10px 20px rgb(0 0 0 / 25%)",
+  //         borderRadius: 10,
+  //         overflow: "hidden",
+  //         backgroundColor: "#F5F5F5",
+  //       },
+  //     },
+  //     MuiFormLabel: { root: { color: "#000" } },
+  //     MuiFilledInput: {
+  //       underline: {
+  //         "&::before": {
+  //           left: "0",
+  //           right: "0",
+  //           bottom: "0",
+  //           content: '"\\00a0"',
+  //           position: "absolute",
+  //           transition:
+  //             "border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+  //           borderBottom: "none !important",
+  //           pointerEvents: "none",
+  //         },
+  //       },
+  //       root: { backgroundColor: " #e5e5e5", color: "#000" },
+  //       inputAdornedStart: { height: "15px !important" },
+  //     },
+  //     MuiTypography: {
+  //       colorPrimary: { color: "#4E525A" },
+  //     },
+  //     MuiOutlinedInput: {
+  //       inputMultiline: {
+  //         padding: "1px !important",
+  //       },
+  //       root: {
+  //         "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+  //           boxShadow:
+  //             "0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #FFFFFF",
+  //         },
+  //       },
+  //       notchedOutline: {
+  //         boxShadow:
+  //           "inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem #FFFFFF",
+  //       },
+  //       input: {
+  //         height: "40px",
+  //         borderRadius: "10px",
+  //         padding: "0px 0px !important",
+  //         "&:-webkit-autofill": {
+  //           "-webkit-background-clip": "text !important",
+  //           // transitionDelay: "9999s",
+  //           "caret-color": "transparent",
+  //           "-webkit-box-shadow": "0 0 0 100px transparent inset",
+  //           "-webkit-text-fill-color": "#000",
+  //         },
+  //         "&:-internal-autofill-selected": {
+  //           color: "#fff",
+  //         },
+  //       },
+  //     },
+  //     MuiButton: {
+  //       containedPrimary: {
+  //         backgroundColor: "#EAE9F0",
+  //         boxShadow: "-6px -5px 14px #ffffff, 10px 10px 20px #d2d1db",
+  //         borderRadius: "100px",
+  //         height: "40px",
+  //         fontWeight: " 800",
+  //         fontSize: "13px",
+  //         "&:hover": {
+  //           boxShadow: "none !important",
+  //           backgroundColor: "#EAE9F0",
+  //         },
+  //       },
+  //     },
+  //     MuiInput: {
+  //       root: {
+  //         borderRadius: "50px",
+  //         boxShadow:
+  //           "inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem #FFFFFF",
+  //         "&.Mui-focused": {
+  //           boxShadow:
+  //             "0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #FFFFFF",
+  //         },
+  //       },
+  //     },
+  //     MuiInputBase: {
+  //       root: {
+  //         backgroundColor: " #f4f2f2",
+  //         color: "#000",
+  //         padding: "5px 12px",
+  //       },
+  //       input: {
+  //         fontSize: "13px !important",
+  //         fontWeight: "400",
+  //         "&::placeholder": {
+  //           opacity: 1,
+  //           color: "#a1a1a1",
+  //         },
+  //       },
+  //     },
+  //     MuiButton: {
+  //       contained: {
+  //         borderRadius: "100px",
+  //         color: "#fff",
+  //       },
+  //       "&.label":{
+  //        display: "flex",
+  //        alignItems: "center",
+  //        justifyContent: "center",
+  //       },
+  //       containedSizeLarge: {
+  //         height: "50px",
+  //         minWidth: "150px",
+  //         fontSize: "14px",
+  //       },
+  //       containedPrimary: {
+  //         backgroundColor: "#F5F5F5",
+  //         boxShadow: "-10px -10px 10px #ffffff, 10px 10px 20px #d2d1db",
+  //         borderRadius: "100px",
+  //         height: "40px",
+  //         color: "#4E525A",
+  //         fontWeight: " 800",
+  //         fontSize: "13px",
+  //         "&:hover": {
+  //           // boxShadow: "8px 8px 20px #a9a8b7, -8px -8px 20px #fff, inset -8px -8px 20px #fff, inset 8px 8px 20px #a9a8b7",
+  //           backgroundColor: "#EAE9F0",
+  //         },
+  //       },
+  //       containedSecondary: {
+  //         backgroundColor: "#F5F5F5",
+  //         boxShadow:
+  //           "0px -3px 10px rgb(255 255 255 / 5%), 10px 10px 20px rgb(0 0 0 / 58%)",
+  //         borderRadius: "100px",
+  //         height: "40px",
+  //         color: "#4E525A",
+  //         fontWeight: " 800",
+  //         fontSize: "13px",
+  //         "&:hover": {
+  //           boxShadow:
+  //             "8px 8px 20px #a9a8b7, -8px -8px 20px #fff, inset -8px -8px 20px #fff, inset 8px 8px 20px #a9a8b7",
+  //           backgroundColor: "#EAE9F0",
+  //         },
+  //       },
+  //       outlinedPrimary: {
+  //         background:
+  //           "linear-gradient(115.29deg, #F54F4F 15.07%, rgba(182, 17, 107, 0.91) 104.4%)",
+  //         boxShadow:
+  //           "0px 0px 0px rgb(255 255 255 / 37%), 10px 10px 20px rgb(0 0 0 / 49%)",
+  //         borderRadius: "22px",
+  //         fontWeight: "bold",
+  //         color: "#FFFFFF",
+  //         fontSize: "18px",
+  //         width: "100%",
+  //       },
+  //       outlinedSecondary: {
+  //         background:
+  //           "linear-gradient(115.29deg, rgba(182, 17, 107, 0.91) 15.07%, rgba(96, 44, 181, 0.57) 104.4%)",
+  //         boxShadow:
+  //           "0px 0px 0px rgb(255 255 255 / 37%), 10px 10px 20px rgb(0 0 0 / 49%)",
+  //         borderRadius: "22px",
+  //         fontSize: "18px",
+  //         border: "none !important",
+  //         color: "#FFFFFF",
+  //         fontWeight: "bold",
+  //         width: "100%",
+  //       },
+  //     },
+  //   },
+  //   typography: {
+  //     fontFamily: "'K2D', sans-serif",
+  //   },
+  //   palette: {
+  //     type: "light",
+  //     action: {
+  //       active: colors.blueGrey[600],
+  //     },
+  //     background: {
+  //       circletableBox: "#fff",
+  //       tablebody: "#C4C1CE",
+  //       selectBox: "#EAE9F0",
+  //       searchBox: "#EAE9F0",
 
-        topbarButtonShadow:
-          "inset 10px 10px 20px #ceccda, inset -10px -10px 20px #ffffff",
-        boxshadows: "-14px -14px 20px 0px #ffffff, 10px 10px 20px #d2d1db",
-        perlyBox:
-          "linear-gradient(128.77deg, rgba(233, 232, 239, 0) 24.06%, #8DE6D1 112.24%)",
-        houseshadow: "0px 0px 7px #e02a08",
-        heading: "#DAD8E1",
-        default: "#F5F5F5",
-        navAccordionicon: "#C4C1CE",
-        Refferal: "#f5f5f5",
-        Refferal1: "#f5f5f5",
-        walletselect: "#ccd7e2",
-        walletselect1: "#ccd7e2",
-        secondDeault: "#C4C1CE",
-        dark: "#f4f6f8",
-        paper: "#ECECEC",
-        subpaper: "#242526",
-        brown: "#f5f5f5",
-        tablehead: "F5F5F5",
-        FormBackground: "#212226",
-        AccordianBackground: "#EAE9F0",
-        AccordianInBack: "#EAE9F0",
-        formBack: "#e6e8ea",
-        CardBack: "#e6e8ea",
-      },
-      CircularSlider: {
-        background: "#C4C1CE",
-        boxShadow:
-          "inset -10px -10px 20px rgb(255 255 255 / 25%), inset 10px 10px 20px rgb(0 0 0 / 51%)",
-      },
-      searchIcon: {
-        background:
-          "radial-gradient(64.29% 64.29% at 30% 25.71%, #6D6D6D 0%, #f3eeee 100%)",
-        boxShadow:
-          "7px 7px 15px 0px rgb(0 0 0 / 30%), -1px -2px 5px 0px rgb(242 242 242), inset -1px -1px 1px 0px rgb(0 0 0 / 30%), inset 1px 1px 2px 0px rgb(162 154 154)",
-        textShadow: "0px 0px 2px rgb(178 159 159)",
-      },
-      primary: {
-        main: "#DAD8E1",
-      },
-      secondary: {
-        main: "#FF9933",
-      },
-      button: {
-        primary: "#DAD8E1",
-        border: "1px solid #70D5FB",
-        boxShadow:
-          "0px 0px 20px rgba(0, 0, 0, 0.5), inset 0px 37px 26px #7784DA",
-      },
+  //       topbarButtonShadow:
+  //         "inset 10px 10px 20px #ceccda, inset -10px -10px 20px #ffffff",
+  //       boxshadows: "-14px -14px 20px 0px #ffffff, 10px 10px 20px #d2d1db",
+  //       perlyBox:
+  //         "linear-gradient(128.77deg, rgba(233, 232, 239, 0) 24.06%, #8DE6D1 112.24%)",
+  //       houseshadow: "0px 0px 7px #e02a08",
+  //       heading: "#DAD8E1",
+  //       default: "#F5F5F5",
+  //       navAccordionicon: "#C4C1CE",
+  //       Refferal: "#f5f5f5",
+  //       Refferal1: "#f5f5f5",
+  //       walletselect: "#ccd7e2",
+  //       walletselect1: "#ccd7e2",
+  //       secondDeault: "#C4C1CE",
+  //       dark: "#f4f6f8",
+  //       paper: "#ECECEC",
+  //       subpaper: "#242526",
+  //       brown: "#f5f5f5",
+  //       tablehead: "F5F5F5",
+  //       FormBackground: "#212226",
+  //       AccordianBackground: "#EAE9F0",
+  //       AccordianInBack: "#EAE9F0",
+  //       formBack: "#e6e8ea",
+  //       CardBack: "#e6e8ea",
+  //     },
+  //     CircularSlider: {
+  //       background: "#C4C1CE",
+  //       boxShadow:
+  //         "inset -10px -10px 20px rgb(255 255 255 / 25%), inset 10px 10px 20px rgb(0 0 0 / 51%)",
+  //     },
+  //     searchIcon: {
+  //       background:
+  //         "radial-gradient(64.29% 64.29% at 30% 25.71%, #6D6D6D 0%, #f3eeee 100%)",
+  //       boxShadow:
+  //         "7px 7px 15px 0px rgb(0 0 0 / 30%), -1px -2px 5px 0px rgb(242 242 242), inset -1px -1px 1px 0px rgb(0 0 0 / 30%), inset 1px 1px 2px 0px rgb(162 154 154)",
+  //       textShadow: "0px 0px 2px rgb(178 159 159)",
+  //     },
+  //     primary: {
+  //       main: "#DAD8E1",
+  //     },
+  //     secondary: {
+  //       main: "#FF9933",
+  //     },
+  //     button: {
+  //       primary: "#DAD8E1",
+  //       border: "1px solid #70D5FB",
+  //       boxShadow:
+  //         "0px 0px 20px rgba(0, 0, 0, 0.5), inset 0px 37px 26px #7784DA",
+  //     },
 
-      button: {
-        primary: "#181818",
-        border: "1px solid #70D5FB ",
-        boxShadow:
-          "0px 0px 20px rgba(0, 0, 0, 0.5), inset 0px 37px 26px #7784DA",
-      },
-      text: {
-        primary: colors.blueGrey[900],
-        white: colors.blueGrey[900],
-        secondary: colors.blueGrey[600],
-        noticetext: colors.blueGrey[900],
-        houseCut: "rgb(236 70 6)",
-      },
-    },
-    shadows: softShadows,
-  },
+  //     button: {
+  //       primary: "#181818",
+  //       border: "1px solid #70D5FB ",
+  //       boxShadow:
+  //         "0px 0px 20px rgba(0, 0, 0, 0.5), inset 0px 37px 26px #7784DA",
+  //     },
+  //     text: {
+  //       primary: colors.blueGrey[900],
+  //       white: colors.blueGrey[900],
+  //       secondary: colors.blueGrey[600],
+  //       noticetext: colors.blueGrey[900],
+  //       houseCut: "rgb(236 70 6)",
+  //     },
+  //   },
+  //   shadows: softShadows,
+  // },
   {
     name: "DARK",
     overrides: {

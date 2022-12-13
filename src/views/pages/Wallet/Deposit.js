@@ -1,13 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
   Grid,
-  Container,
   makeStyles,
   TextField,
   Select,
-  InputAdornment,
   MenuItem,
   Button,
 } from "@material-ui/core";
@@ -17,14 +15,12 @@ import {
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import FormControl from "@material-ui/core/FormControl";
-import { submitContext } from "../../../layouts/DashboardLayout/TopBar";
-
 import CircularProgress from "@material-ui/core/CircularProgress";
 import SnackbarService from "src/services/SnackbarService";
 import { deposit1, initBiconomy } from "src/services/withdrawORDeposit";
 import { getBalanceAction } from "../../../redux/actions/balanceAction";
 import { updateBalance } from "../../../services/updateBalance";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 // deposit data
 
 const useStyles = makeStyles((theme) => ({
@@ -61,25 +57,26 @@ const useStyles = makeStyles((theme) => ({
 const Deposit = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [select, setSelect] = useState("Deposite");
-  const [widthdraw, setWidthdraw] = useState("Withdraw");
+  // const [select, setSelect] = useState("Deposite"); //Coming Soon
+  // const [widthdraw, setWidthdraw] = useState("Withdraw");
   const [Fund, setFund] = useState("");
   const [loader, setLoader] = useState(false);
   const [snackBarContent, setSnackBarContent] = useState(false);
   const [snackBarMsg, setSnackBarMsg] = useState("");
   const [snackBarStatus, setSnackBarStatus] = useState("");
 
-  const handleChange2 = (event) => {
-    setWidthdraw(event.target.value);
-  };
-  const handleChange = (event) => {
-    setSelect(event.target.value);
-  };
+  //Coming Soon!
+  // const handleChange2 = (event) => {
+  //   setWidthdraw(event.target.value);
+  // };
+  // const handleChange = (event) => {
+  //   setSelect(event.target.value);
+  // };
+
   const [select1, setSelect1] = useState("BTC");
   const handleChange1 = (event) => {
     setSelect1(event.target.value);
   };
-  // const onSubmit = useContext(submitContext);
 
   const snackBar = (msg, status) => {
     setSnackBarMsg(msg);
@@ -94,18 +91,11 @@ const Deposit = () => {
     try {
       setLoader(true);
       const res = await deposit1(_fund);
-
       if (res) {
-        // snackBar(
-        //   "Transaction sign for " + _fund + " amount successfully.",
-        //   "success"
-        // );
         setTimeout(async () => {
           const balance = await updateBalance();
-          console.log(balance, "ressssssssssss");
           setLoader(false);
           snackBar("Deposite " + _fund + " amount successfully.", "success");
-          // window.location.reload();
           dispatch(getBalanceAction(balance));
         }, 30000);
       } else {
@@ -146,21 +136,8 @@ const Deposit = () => {
                     >
                       <MenuItem value={"BTC"}>
                         <Box className={classes.selectBox}>
-                          <img src="images/btc.png" alt="image" />
-                          <Typography variant="h5">BTC</Typography>
-                        </Box>
-                      </MenuItem>
-                      <MenuItem value={"BNB"}>
-                        <Box className={classes.selectBox}>
-                          <img src="images/bnb.png" alt="image" />
-                          <Typography variant="h5">BNB</Typography>
-                        </Box>
-                      </MenuItem>
-
-                      <MenuItem value={"ETH"}>
-                        <Box className={classes.selectBox}>
-                          <img src="images/eth.png" alt="image" />
-                          <Typography variant="h5">ETH</Typography>
+                          <img src="images/dexwinCoin.png" alt="image" />
+                          <Typography variant="h5">DWIN</Typography>
                         </Box>
                       </MenuItem>
                     </Select>
@@ -183,7 +160,6 @@ const Deposit = () => {
               </Box>
             </Grid>
           </Grid>
-
           <Box align="center" mt={3}>
             {loader ? (
               <Button
@@ -195,7 +171,7 @@ const Deposit = () => {
                 disabled
               >
                 {" "}
-                <CircularProgress color="secondary" />{" "}
+                <CircularProgress color="secondary" />
               </Button>
             ) : (
               <Button
@@ -208,7 +184,6 @@ const Deposit = () => {
                   depositeCurrency(Fund);
                 }}
               >
-                {" "}
                 Submit{" "}
               </Button>
             )}
